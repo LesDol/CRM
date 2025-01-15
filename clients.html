@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRM | Клиенты</title>
+    <link rel="stylesheet" href="styles/settings.css">
+    <link rel="stylesheet" href="styles/pages/clients.css">
+    <link rel="stylesheet" href="styles/modules/font-awesome-4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <p class="header_admin">Фамилия Имя Отчество</p>
+            <ul class="header_links"> 
+                <li><a href="">Клиенты</a></li>
+                <li><a href="">Товары</a></li>
+                <li><a href="">Заказы</a></li>
+            </ul>
+            <a class="header_logout" href="">Выйти</a>
+        </div>
+    </header>
+    <main>
+        <section class="filters">
+            <div class="container">
+                <form action="">
+                    <i class="fa fa-address-book" aria-hidden="true"></i>
+                    <label for="search">Поиск по имени</label>
+                    <input type="text" id="search" name="search" placeholder="Александр">
+                    <select name="sort" id="sort">
+                        <option value="0">По возрастанию</option>
+                        <option value="1">По убыванию</option>
+                    </select>
+                </form>
+            </div>
+        </section>
+        <section class="clients">
+            <div class="container">
+                        <h2 class="clients_title">Список клиентов</h2>
+                        <button class="clients_add"><i class="fa fa-plus-square fa-2x" aria-hidden="true"></i>
+                        </button>
+                    <table>
+                    <thead>
+                        <th>ИД</th>
+                        <th>ФИО</th>
+                        <th>Почта</th>
+                        <th>Телефон</th>
+                        <th>День рождения</th>
+                        <th>Дата создания</th>
+                        <th>История заказа</th>
+                        <th>Радактировать</th>
+                        <th>Удалить</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>0</td>
+                            <td>Манда Ирина Ивановна</td>
+                            <td>example@mail.com</td>
+                            <td>8-900-35-55-33</td>
+                            <td>20.02.2000</td>
+                            <td>10.10.2019</td>
+                            <td><i class="fa fa-history" aria-hidden="true"></i>
+                            </td>
+                            <td><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                            </td>
+                            <td><i class="fa fa-trash" aria-hidden="true"></i>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>0</td>
+                            <td>Манда Ирина Ивановна</td>
+                            <td>example@mail.com</td>
+                            <td>8-900-35-55-33</td>
+                            <td>20.02.2000</td>
+                            <td>10.10.2019</td>
+                            <td><i class="fa fa-history" aria-hidden="true"></i>
+                            </td>
+                            <td><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                            </td>
+                            <td><i class="fa fa-trash" aria-hidden="true"></i>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>0</td>
+                            <td>Манда Ирина Ивановна</td>
+                            <td>example@mail.com</td>
+                            <td>8-900-35-55-33</td>
+                            <td>20.02.2000</td>
+                            <td>10.10.2019</td>
+                            <td><i class="fa fa-history" aria-hidden="true"></i>
+                            </td>
+                            <td><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                            </td>
+                            <td><i class="fa fa-trash" aria-hidden="true"></i>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>0</td>
+                            <td>Манда Ирина Ивановна</td>
+                            <td>example@mail.com</td>
+                            <td>8-900-35-55-33</td>
+                            <td>20.02.2000</td>
+                            <td>10.10.2019</td>
+                            <td><i class="fa fa-history" aria-hidden="true"></i>
+                            </td>
+                            <td><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                            </td>
+                            <td><i class="fa fa-trash" aria-hidden="true"></i>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>0</td>
+                            <td>Манда Ирина Ивановна</td>
+                            <td>example@mail.com</td>
+                            <td>8-900-35-55-33</td>
+                            <td>20.02.2000</td>
+                            <td>10.10.2019</td>
+                            <td><i class="fa fa-history" aria-hidden="true"></i>
+                            </td>
+                            <td><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                            </td>
+                            <td><i class="fa fa-trash" aria-hidden="true"></i>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>0</td>
+                            <td>Манда Ирина Ивановна</td>
+                            <td>example@mail.com</td>
+                            <td>8-900-35-55-33</td>
+                            <td>20.02.2000</td>
+                            <td>10.10.2019</td>
+                            <td><i class="fa fa-history" aria-hidden="true"></i>
+                            </td>
+                            <td><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                            </td>
+                            <td><i class="fa fa-trash" aria-hidden="true"></i>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>0</td>
+                            <td>Манда Ирина Ивановна</td>
+                            <td>example@mail.com</td>
+                            <td>8-900-35-55-33</td>
+                            <td>20.02.2000</td>
+                            <td>10.10.2019</td>
+                            <td><i class="fa fa-history" aria-hidden="true"></i>
+                            </td>
+                            <td><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                            </td>
+                            <td><i class="fa fa-trash" aria-hidden="true"></i>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>0</td>
+                            <td>Манда Ирина Ивановна</td>
+                            <td>example@mail.com</td>
+                            <td>8-900-35-55-33</td>
+                            <td>20.02.2000</td>
+                            <td>10.10.2019</td>
+                            <td><i class="fa fa-history" aria-hidden="true"></i>
+                            </td>
+                            <td><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                            </td>
+                            <td><i class="fa fa-trash" aria-hidden="true"></i>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>0</td>
+                            <td>Манда Ирина Ивановна</td>
+                            <td>example@mail.com</td>
+                            <td>8-900-35-55-33</td>
+                            <td>20.02.2000</td>
+                            <td>10.10.2019</td>
+                            <td><i class="fa fa-history" aria-hidden="true"></i>
+                            </td>
+                            <td><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                            </td>
+                            <td><i class="fa fa-trash" aria-hidden="true"></i>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>0</td>
+                            <td>Манда Ирина Ивановна</td>
+                            <td>example@mail.com</td>
+                            <td>8-900-35-55-33</td>
+                            <td>20.02.2000</td>
+                            <td>10.10.2019</td>
+                            <td><i class="fa fa-history" aria-hidden="true"></i>
+                            </td>
+                            <td><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                            </td>
+                            <td><i class="fa fa-trash" aria-hidden="true"></i>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>0</td>
+                            <td>Манда Ирина Ивановна</td>
+                            <td>example@mail.com</td>
+                            <td>8-900-35-55-33</td>
+                            <td>20.02.2000</td>
+                            <td>10.10.2019</td>
+                            <td><i class="fa fa-history" aria-hidden="true"></i>
+                            </td>
+                            <td><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                            </td>
+                            <td><i class="fa fa-trash" aria-hidden="true"></i>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>0</td>
+                            <td>Манда Ирина Ивановна</td>
+                            <td>example@mail.com</td>
+                            <td>8-900-35-55-33</td>
+                            <td>20.02.2000</td>
+                            <td>10.10.2019</td>
+                            <td><i class="fa fa-history" aria-hidden="true"></i>
+                            </td>
+                            <td><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                            </td>
+                            <td><i class="fa fa-trash" aria-hidden="true"></i>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>0</td>
+                            <td>Манда Ирина Ивановна</td>
+                            <td>example@mail.com</td>
+                            <td>8-900-35-55-33</td>
+                            <td>20.02.2000</td>
+                            <td>10.10.2019</td>
+                            <td><i class="fa fa-history" aria-hidden="true"></i>
+                            </td>
+                            <td><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                            </td>
+                            <td><i class="fa fa-trash" aria-hidden="true"></i>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>0</td>
+                            <td>Манда Ирина Ивановна</td>
+                            <td>example@mail.com</td>
+                            <td>8-900-35-55-33</td>
+                            <td>20.02.2000</td>
+                            <td>10.10.2019</td>
+                            <td><i class="fa fa-history" aria-hidden="true"></i>
+                            </td>
+                            <td><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                            </td>
+                            <td><i class="fa fa-trash" aria-hidden="true"></i>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>0</td>
+                            <td>Манда Ирина Ивановна</td>
+                            <td>example@mail.com</td>
+                            <td>8-900-35-55-33</td>
+                            <td>20.02.2000</td>
+                            <td>10.10.2019</td>
+                            <td><i class="fa fa-history" aria-hidden="true"></i>
+                            </td>
+                            <td><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                            </td>
+                            <td><i class="fa fa-trash" aria-hidden="true"></i>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>0</td>
+                            <td>Манда Ирина Ивановна</td>
+                            <td>example@mail.com</td>
+                            <td>8-900-35-55-33</td>
+                            <td>20.02.2000</td>
+                            <td>10.10.2019</td>
+                            <td><i class="fa fa-history" aria-hidden="true"></i>
+                            </td>
+                            <td><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                            </td>
+                            <td><i class="fa fa-trash" aria-hidden="true"></i>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>0</td>
+                            <td>Манда Ирина Ивановна</td>
+                            <td>example@mail.com</td>
+                            <td>8-900-35-55-33</td>
+                            <td>20.02.2000</td>
+                            <td>10.10.2019</td>
+                            <td><i class="fa fa-history" aria-hidden="true"></i>
+                            </td>
+                            <td><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                            </td>
+                            <td><i class="fa fa-trash" aria-hidden="true"></i>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>0</td>
+                            <td>Манда Ирина Ивановна</td>
+                            <td>example@mail.com</td>
+                            <td>8-900-35-55-33</td>
+                            <td>20.02.2000</td>
+                            <td>10.10.2019</td>
+                            <td><i class="fa fa-history" aria-hidden="true"></i>
+                            </td>
+                            <td><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                            </td>
+                            <td><i class="fa fa-trash" aria-hidden="true"></i>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>0</td>
+                            <td>Манда Ирина Ивановна</td>
+                            <td>example@mail.com</td>
+                            <td>8-900-35-55-33</td>
+                            <td>20.02.2000</td>
+                            <td>10.10.2019</td>
+                            <td><i class="fa fa-history" aria-hidden="true"></i>
+                            </td>
+                            <td><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                            </td>
+                            <td><i class="fa fa-trash" aria-hidden="true"></i>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>0</td>
+                            <td>Манда Ирина Ивановна</td>
+                            <td>example@mail.com</td>
+                            <td>8-900-35-55-33</td>
+                            <td>20.02.2000</td>
+                            <td>10.10.2019</td>
+                            <td><i class="fa fa-history" aria-hidden="true"></i>
+                            </td>
+                            <td><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                            </td>
+                            <td><i class="fa fa-trash" aria-hidden="true"></i>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>0</td>
+                            <td>Манда Ирина Ивановна</td>
+                            <td>example@mail.com</td>
+                            <td>8-900-35-55-33</td>
+                            <td>20.02.2000</td>
+                            <td>10.10.2019</td>
+                            <td><i class="fa fa-history" aria-hidden="true"></i>
+                            </td>
+                            <td><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                            </td>
+                            <td><i class="fa fa-trash" aria-hidden="true"></i>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

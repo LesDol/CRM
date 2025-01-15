@@ -1,0 +1,112 @@
+body {
+    font-family: Arial, sans-serif; /* Шрифт для всей страницы */
+    background-color: #121212; /* Темный цвет фона */
+    color: #e0e0e0; /* Светлый цвет текста */
+    margin: 0; /* Убираем отступы */
+}
+.header {
+    background-color: #1f1f1f; /* Темный фон заголовка */
+    color: #ffffff; /* Белый цвет текста заголовка */
+    padding: 15px 0; /* Отступы внутри заголовка */
+}
+.header .container {
+    width: 90%; /* Ширина контейнера */
+    max-width: 1200px; /* Максимальная ширина контейнера */
+    margin: 0 auto; /* Центрируем контейнер */
+    display: flex; /* Используем Flexbox для выравнивания элементов */
+    justify-content: space-between; /* Распределяем элементы по краям */
+    align-items: center; /* Выравниваем элементы по вертикали */
+}
+.header_admin {
+    font-size: 18px; /* Размер шрифта для имени администратора */
+}
+.header_links {
+    list-style-type: none; /* Убираем маркеры списка */
+    padding: 0; /* Убираем отступы списка */
+    margin: 0; /* Убираем отступы списка */
+    display: flex; /* Используем Flexbox для горизонтального расположения ссылок */
+}
+.header_links li {
+    margin-right: 20px; /* Отступ между ссылками */
+}
+.header_links a {
+    color: #ffffff; /* Белый цвет текста ссылок */
+    text-decoration: none; /* Убираем подчеркивание у ссылок */
+}
+.header_logout {
+    color: #ffffff; /* Белый цвет текста ссылки "Выйти" */
+    text-decoration: none; /* Убираем подчеркивание у ссылки "Выйти" */
+    padding: 5px 10px; /* Отступы вокруг ссылки "Выйти" */
+    border-radius: 4px; /* Скругление углов кнопки "Выйти" */
+    background-color: #a72828; /* Цвет фона кнопки "Выйти" (красный) */
+}
+.header_logout:hover {
+    background-color: #882121; /* Темно-красный цвет фона кнопки "Выйти" при наведении */
+}
+main {
+    padding: 20px;
+}
+.filters {
+    background-color: #1f1f1f; /* Темный фон секции фильтров */
+    padding: 20px;
+    border-radius: 8px;
+}
+.filters label {
+    color: #ffffff; /* Белый цвет текста меток */
+}
+.filters input[type="text"],
+.filters select {
+    width: calc(100% - 20px); /* Ширина с учетом отступов */
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 4px;
+    border: 1px solid #333333; /* Темная рамка для полей ввода и селектов */
+    background-color: #2a2a2a; /* Темный фон для полей ввода и селектов */
+    color: #e0e0e0; /* Светлый цвет текста в полях ввода и селектах */
+}
+.filters input[type="text"]::placeholder,
+.filters select option {
+    color: #aaaaaa; /* Цвет плейсхолдера и опций в селекте (серый) */
+}
+.clients {
+    background-color: #121212; /* Темный цвет фона секции */
+    padding: 20px; /* Отступы внутри секции */
+    border-radius: 8px; /* Скругление углов секции */
+}
+table {
+    width: 100%; /* Ширина таблицы на всю ширину контейнера */
+    border-collapse: collapse; /* Убираем двойные границы между ячейками */
+    color: #e0e0e0; /* Светлый цвет текста в таблице */
+}
+thead {
+    background-color: #1f1f1f; /* Темный фон для заголовка таблицы */
+}
+th, td {
+    padding: 12px; /* Отступы внутри ячеек */
+    text-align: left; /* Выравнивание текста по левому краю */
+    border-bottom: 1px solid #333333; /* Темная граница между строками */
+}
+th {
+    font-weight: bold; /* Жирный шрифт для заголовков */
+}
+tr:hover {
+    background-color: #2a2a2a; /* Цвет фона строки при наведении */
+}
+.fa {
+    color: #28a745; /* Цвет иконок (зеленый) */
+    cursor: pointer; /* Указатель при наведении на иконки */
+}
+.fa:hover {
+    color: #218838; /* Темно-зеленый цвет иконок при наведении */
+}
+
+.clients_title{
+    font-size: 24px;
+    text-align: center;
+    margin: 16px 0;
+}
+.clients_add{
+    position: sticky;
+    top: 16px;
+    margin-bottom: 10px;
+}
