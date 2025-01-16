@@ -93,11 +93,11 @@ tr:hover {
     background-color: #2a2a2a; /* Цвет фона строки при наведении */
 }
 .fa {
-    color: #28a745; /* Цвет иконок (зеленый) */
+    color: #218838; /* Цвет иконок (зеленый) */
     cursor: pointer; /* Указатель при наведении на иконки */
 }
 .fa:hover {
-    color: #218838; /* Темно-зеленый цвет иконок при наведении */
+    color: #289b41; /* Темно-зеленый цвет иконок при наведении */
 }
 
 .clients_title{
@@ -110,3 +110,96 @@ tr:hover {
     top: 16px;
     margin-bottom: 10px;
 }
+.registration-form {
+    background: #1e1e1e; /* Темный фон для формы */
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            max-width: 400px;
+            margin: auto;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #ffffff; /* Белый цвет для меток */
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #444; /* Темная граница */
+            border-radius: 4px;
+            background-color: #333; /* Темный фон для полей ввода */
+            color: #ffffff; /* Белый текст в полях ввода */
+        }
+        .form-group input::placeholder {
+            color: #bbb; /* Серый цвет для плейсхолдера */
+        }
+        .button-group {
+            display: flex;
+            justify-content: space-between;
+        }
+        .button-group button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .button-group button.create {
+            background-color: #08641e; /* Зеленая кнопка */
+            color: white;
+        }
+        .button-group button.cancel {
+            background-color: #aa0d0d; /* Красная кнопка */
+            color: white;
+        }
+        .registration-form {
+            background: #1e1e1e; /* Темный фон для формы */
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            max-width: 400px;
+            margin: auto;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #ffffff; /* Белый цвет для меток */
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #444; /* Темная граница */
+            border-radius: 4px;
+            background-color: #333; /* Темный фон для полей ввода */
+            color: #ffffff; /* Белый текст в полях ввода */
+        }
+        .form-group input::placeholder {
+            color: #bbb; /* Серый цвет для плейсхолдера */
+        }
+        .button-group {
+            display: flex;
+            justify-content: space-between;
+        }
+        .button-group button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .button-group button.create {
+            background-color: #218838; /* Зеленая кнопка */
+            color: white;
+            font-weight: bold;
+        }
+        .button-group button.cancel {
+            background-color: #a72828; /* Красная кнопка */
+            color: white;
+            font-weight: bold;
+        }
