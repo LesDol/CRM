@@ -40,7 +40,9 @@
                         <h2 class="clients_title">Список клиентов</h2>
                         <button onclick="MicroModal.show('add-modal')" class="clients_add"><i class="fa fa-plus-square fa-2x" aria-hidden="true"></i>
                         </button>
-                    <table>
+                   
+                        <div class="table-wrap">
+                        <table>
                     <thead>
                         <th>ИД</th>
                         <th>ФИО</th>
@@ -60,7 +62,7 @@
                             <td>8-900-35-55-33</td>
                             <td>20.02.2000</td>
                             <td>10.10.2019</td>
-                            <td><i class="fa fa-history" aria-hidden="true"></i>
+                            <td><i class="fa fa-history" aria-hidden="true" onclick="MicroModal.show('history-modal')"></i>
                             </td>
                             <td><i class="fa fa-pencil-square-o" aria-hidden="true" onclick="MicroModal.show('edit-modal')"></i>
                             </td>
@@ -350,6 +352,7 @@
                     </tbody>
                 </table>
             </div>
+            </div>
         </section>
     </main>
 
@@ -402,16 +405,16 @@
             </header>
             <main class="modal__content" id="modal-1-content">
                 <form>
-                    <div class="button-group"></div>
+                    <div class="button-group">
                         <button type="submit" class="create">Удалить</button>
                         <button type="button" class="cancel" onclick="window.location.reload();">Отменить</button>
                     </div>
+                </div>
                 </form>
             </main>
           </div>
         </div>
-
-        <div class="modal micromodal-slide" id="edit-modal" aria-hidden="true">
+    <div class="modal micromodal-slide" id="edit-modal" aria-hidden="true">
             <div class="modal__overlay" tabindex="-1" data-micromodal-close>
               <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="modal-1-title">
                 <header class="modal__header">
@@ -437,6 +440,48 @@
                         <div class="button-group">
                             <button type="submit" class="create">Сохранить</button>
                             <button type="button" class="cancel" onclick="window.location.reload();">Отменить</button>
+                        </div>
+                    </form>
+                </main>
+              </div>
+            </div>
+          </div>
+
+    <div class="modal micromodal-slide" id="history-modal" aria-hidden="true">
+            <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+              <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="modal-1-title">
+                <header class="modal__header">
+                  <h2 class="modal__title" id="modal-1-title">
+                    История заказов
+                  </h2>
+                  <small>Фамилия Имя Отчество</small>
+                  <button class="modal__close" aria-label="Close modal" data-micromodal-close></button>
+                </header>
+                <main class="modal__content" id="modal-1-content">
+                    <form>
+
+                        <div class="order">
+                                <div class="order_info">
+                                    <h3 class="order_number">Заказ №1</h3>
+                                    <time class="order_date">Дата оформления :<b> 2025-01-13 09:25:03</b></time>
+                                    <p class="order_total">Общая сумма : <b>300.00р</b></p>
+                                </div>
+                                
+                                    <table class="order_items">
+                                        <tr>
+                                            <th>ИД</th>
+                                            <th>Название товара</th>
+                                            <th>Количество</th>
+                                            <th>Цена</th>
+                                        </tr>
+                                        <tr>
+                                            <td>13</td>
+                                            <td>Футболка</td>
+                                            <td>10</td>
+                                            <td>10000</td>
+                                        </tr>
+                                    </table>
+                                
                         </div>
                     </form>
                 </main>

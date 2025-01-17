@@ -193,13 +193,106 @@ tr:hover {
             border-radius: 4px;
             cursor: pointer;
         }
-        .button-group button.create {
+        .button-group .create {
             background-color: #218838; /* Зеленая кнопка */
             color: white;
             font-weight: bold;
         }
-        .button-group button.cancel {
+        .button-group .cancel {
             background-color: #a72828; /* Красная кнопка */
             color: white;
             font-weight: bold;
+        }
+
+        .order {
+            margin-bottom: 16px;
+        }
+        
+        .order_info {
+            margin-bottom: 8px;
+        }
+        
+        .order_number {
+            font-weight: bold;
+        }
+        
+        .order_date, .order_total {
+            font-size: 0.9em; /* Уменьшенный размер шрифта */
+        }
+        
+        /* Стили для таблицы с товарами */
+        .order_items {
+            width: 100%;
+            border-collapse: collapse; /* Убираем промежутки между ячейками */
+        }
+        
+        .order_items th, .order_items td {
+            padding: 8px; /* Отступы внутри ячеек */
+            text-align: left; /* Выравнивание текста по левому краю */
+        }
+        
+        .order_items th {
+            background-color: #444; /* Фон заголовков таблицы */
+        }
+        
+        .order_items tr:nth-child(even) {
+            background-color: #333; /* Чередующиеся строки таблицы */
+        }
+        
+        .order_items tr:hover {
+            background-color: #555; /* Подсветка строки при наведении */
+        }
+        .modal__container h3{
+            color: white;
+        }
+        .modal__container small{
+            color: white;
+        }
+        .order_info{
+            color: white;
+        }
+
+        @media(max-width : 1400px){
+
+        }
+        @media(max-width : 992px){
+            table {
+                border: 0;
+              }
+            
+              table thead {
+                display: none;
+              }
+            
+              table tr {
+                margin-bottom: 10px;
+                display: block;
+                border-bottom: 2px solid #ddd;
+              }
+            
+              table td {
+                display: block;
+                text-align: right;
+                font-size: 13px;
+                border-bottom: 1px dotted #ccc;
+                border-right: 1px solid transparent;
+              }
+            
+              table td:last-child {
+                border-bottom: 0;
+              }
+            
+              table td:before {
+                content: attr(data-label);
+                float: left;
+                text-transform: uppercase;
+                font-weight: bold;
+              }
+
+        }
+        @media(max-width : 768px){
+
+        }
+        @media(max-width : 576px){
+
         }
