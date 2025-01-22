@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1
--- Время создания: Янв 13 2025 г., 04:59
+-- Время создания: Янв 22 2025 г., 10:32
 -- Версия сервера: 10.4.32-MariaDB
 -- Версия PHP: 8.2.12
 
@@ -41,9 +41,9 @@ CREATE TABLE `clients` (
 --
 
 INSERT INTO `clients` (`id`, `name`, `email`, `phone`, `birthday`, `created_at`) VALUES
-(1, 'Alice Johnson', 'alice.johnson@example.com', '+1234567890', '1990-05-15', '2025-01-13 02:59:01'),
-(2, 'Bob Smith', 'bob.smith@example.com', '+0987654321', '1985-10-20', '2025-01-13 02:59:01'),
-(3, 'Charlie Brown', 'charlie.brown@example.com', '+1122334455', '1992-07-30', '2025-01-13 02:59:01');
+(1, 'Ivan Ivanov', 'ivan.ivanov@example.com', '+79991234567', '1985-05-15', '2025-01-13 06:21:57'),
+(2, 'Maria Petrovna', 'maria.petrova@example.com', '+79991234568', '1990-07-20', '2025-01-13 06:21:57'),
+(3, 'Sergei Sidorov', 'sergey.sidorov@example.com', '+79991234569', '1988-03-30', '2025-01-13 06:21:57');
 
 -- --------------------------------------------------------
 
@@ -56,7 +56,7 @@ CREATE TABLE `orders` (
   `client_id` int(11) NOT NULL,
   `order_date` timestamp NOT NULL DEFAULT current_timestamp(),
   `total` decimal(10,2) DEFAULT NULL,
-  `status` enum('pending','completed','canceled') DEFAULT 'pending'
+  `status` enum('Pending','Completed','Cancelled') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -64,9 +64,9 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`id`, `client_id`, `order_date`, `total`, `status`) VALUES
-(1, 1, '2025-01-13 02:59:01', 1450.00, 'completed'),
-(2, 2, '2025-01-13 02:59:01', 800.00, 'pending'),
-(3, 3, '2025-01-13 02:59:01', 300.00, 'canceled');
+(1, 1, '2025-01-13 06:25:36', 300.00, 'Completed'),
+(2, 2, '2025-01-13 06:25:36', 150.50, 'Pending'),
+(3, 1, '2025-01-13 06:25:36', 200.00, '');
 
 -- --------------------------------------------------------
 
@@ -82,16 +82,6 @@ CREATE TABLE `order_items` (
   `price` decimal(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Дамп данных таблицы `order_items`
---
-
-INSERT INTO `order_items` (`id`, `order_id`, `product_id`, `quantity`, `price`) VALUES
-(1, 1, 1, 1, 1200.00),
-(2, 1, 3, 1, 150.00),
-(3, 2, 2, 1, 800.00),
-(4, 3, 3, 2, 300.00);
-
 -- --------------------------------------------------------
 
 --
@@ -106,15 +96,6 @@ CREATE TABLE `products` (
   `stock` int(11) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Дамп данных таблицы `products`
---
-
-INSERT INTO `products` (`id`, `name`, `desc`, `price`, `stock`) VALUES
-(1, 'Laptop', 'High-performance laptop for gaming and work.', 1200.00, 10),
-(2, 'Smartphone', 'Latest model smartphone with all features.', 800.00, 25),
-(3, 'Headphones', 'Noise-cancelling over-ear headphones.', 150.00, 50);
-
 -- --------------------------------------------------------
 
 --
@@ -125,17 +106,19 @@ CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `login` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `name` varchar(255) NOT NULL
+  `name` varchar(255) NOT NULL,
+  `surname` varchar(256) NOT NULL,
+  `token` varchar(256) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Дамп данных таблицы `users`
 --
 
-INSERT INTO `users` (`id`, `login`, `password`, `name`) VALUES
-(1, 'admin', 'admin123', 'Administrator'),
-(2, 'user1', 'password1', 'User One'),
-(3, 'user2', 'password2', 'User Two');
+INSERT INTO `users` (`id`, `login`, `password`, `name`, `surname`, `token`) VALUES
+(1, 'admin', 'admin123', 'Administrator', 'AA', '228'),
+(2, 'manager', 'manager456', 'Manager', 'AA', '822'),
+(3, 'sales', 'sales789', 'Sales Representative', 'AA', '1488');
 
 --
 -- Индексы сохранённых таблиц
@@ -196,13 +179,13 @@ ALTER TABLE `orders`
 -- AUTO_INCREMENT для таблицы `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT для таблицы `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT для таблицы `users`
@@ -218,14 +201,14 @@ ALTER TABLE `users`
 -- Ограничения внешнего ключа таблицы `orders`
 --
 ALTER TABLE `orders`
-  ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`client_id`) REFERENCES `clients` (`id`);
+  ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`client_id`) REFERENCES `clients` (`id`) ON DELETE CASCADE;
 
 --
 -- Ограничения внешнего ключа таблицы `order_items`
 --
 ALTER TABLE `order_items`
-  ADD CONSTRAINT `order_items_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`),
-  ADD CONSTRAINT `order_items_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`);
+  ADD CONSTRAINT `order_items_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `order_items_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

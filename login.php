@@ -2,7 +2,7 @@
 
 session_start();
 
-require_once 'modules/AuthCheck.php';
+require_once 'api/auth/AuthCheck.php';
 
 AuthCheck('clients.php');
 
@@ -20,10 +20,25 @@ AuthCheck('clients.php');
     <div class="container">
         <div class="login-form">
         <h2>Вход</h2>
-        <form>
-            <input type="text" placeholder="Логин" required>
-            <input type="password" placeholder="Пароль" required>
+        <form action = "api/auth/AuthUser.php" method = "POST">
+            <input type="text" name = "login" id = "login" placeholder="Логин" >
+            <p class = 'error'><?php
+             if(isset($_SESSION['login-errors'])){
+                $errors = $_SESSION['login-errors'];
+                $loginError = isset($errors['login']) ? $errors['login'] : "";
+            echo $loginError;
+             }
+             ?></p>
+             <input type="password" name = "password" id = "password" placeholder="Пароль" >
+             <p class = 'error'><?php
+             if(isset($_SESSION['login-errors'])){
+                $errors = $_SESSION['login-errors'];
+                $loginError = isset($errors['password']) ? $errors['password'] : "";
+            echo $loginError;
+             }
+             ?></p>
             <button type="submit">Войти</button>
+
         </form>
     </div>
         <!-- форма с полями логин , пароль , кнопка ввойти. Вид пл центру. Стили должны быть изолированы -->

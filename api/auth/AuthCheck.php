@@ -1,8 +1,8 @@
 <?php
 function AuthCheck($successPath = '', $errorPath = '') {
    
-    require_once 'DB.php';
-    $_SESSION['token']='1488';
+    require_once 'api/db.php';
+   // $_SESSION['token']='';
 
     // if (isset($_SESSION['token']) && !empty($_SESSION['token'])) {
 

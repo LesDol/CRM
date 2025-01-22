@@ -46,3 +46,7 @@
     .login-form button:hover {
         background-color: #882121; /* Темно-зеленый цвет фона кнопки при наведении */
     }
+    .error{
+        color: red;
+        font-size: small;
+    }

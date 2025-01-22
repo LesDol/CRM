@@ -2,9 +2,9 @@
 
 session_start();
 
-require_once 'modules/AuthCheck.php';
+require_once 'api/auth/AuthCheck.php';
 
-AuthCheck('','login.php');
+//AuthCheck('clients.php','login.php');
 
 ?>
 <!DOCTYPE html>
