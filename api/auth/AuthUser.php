@@ -61,9 +61,11 @@ if($_SERVER['REQUEST_METHOD'] === "POST"){
                 WHERE login = '$login' AND password = '$password' 
                 "
             )->fetchAll();
-                    if($token){
-                        header('Location: ../../clients.php');
-                    }
+                
+            $_SESSION['token'] = $token;
+
+            header('Location: ../../clients.php');
+                    
             
 
 
