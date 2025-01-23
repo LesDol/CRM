@@ -2,6 +2,7 @@
 function AuthCheck($successPath = '', $errorPath = '') {
    
     require_once 'api/db.php';
+    require_once 'LogoutUser.php';
    // $_SESSION['token']='';
 
     // if (isset($_SESSION['token']) && !empty($_SESSION['token'])) {
@@ -15,10 +16,13 @@ function AuthCheck($successPath = '', $errorPath = '') {
     //     exit();
     // }
 
-    if (!isset($_SESSION['token']) && $errorPath) {
+    if (!isset($_SESSION['token'])) {
+        if($errorPath){
+             header("Location: $errorPath");
+        }
         // Если токен отсутствует или пустой, редиректим на путь ошибки
-        header("Location: $errorPath");
-        exit();
+       
+        return;
     }
     $token=$_SESSION['token'];
     $adminID= $db->query(
@@ -34,6 +38,9 @@ function AuthCheck($successPath = '', $errorPath = '') {
     } 
     if(empty($adminID) && $errorPath){
         // Если токен отсутствует или пустой, редиректим на путь ошибки
+
+        logoutUser($errorPath,$db);
+
         header("Location: $errorPath");
         exit();
     }
