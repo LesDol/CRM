@@ -29,7 +29,14 @@ AuthCheck('','login.php');
 <body>
     <header class="header">
         <div class="container">
-            <p class="header_admin">Фамилия Имя Отчество</p>
+            <p class="header_admin">
+                <?php
+                    require 'api/db.php';
+                    require_once 'api/clients/AdminName.php';
+
+                    echo AdminName($_SESSION['token'],$db);
+                ?>
+            </p>
             <ul class="header_links"> 
                 <li><a href="">Клиенты</a></li>
                 <li><a href="">Товары</a></li>
@@ -72,6 +79,17 @@ AuthCheck('','login.php');
                         <th>Удалить</th>
                     </thead>
                     <tbody>
+                        <?php
+                            
+                            require_once 'api/db.php';
+                            require_once 'api/clients/OutputClients.php';
+
+                            $clients = $db->query(
+                                "SELECT * FROM clients
+                                 ") ->fetchAll();
+                            
+                            OutputClients($clients);
+                        ?>
                         <tr>
                             <td>0</td>
                             <td>Манда Ирина Ивановна</td>
