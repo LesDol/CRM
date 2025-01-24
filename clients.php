@@ -494,7 +494,6 @@ AuthCheck('','login.php');
                 </header>
                 <main class="modal__content" id="modal-1-content">
                     <form>
-
                         <div class="order">
                                 <div class="order_info">
                                     <h3 class="order_number">Заказ №1</h3>
@@ -515,8 +514,7 @@ AuthCheck('','login.php');
                                             <td>10</td>
                                             <td>10000</td>
                                         </tr>
-                                    </table>
-                                
+                                    </table>                              
                         </div>
                     </form>
                 </main>
