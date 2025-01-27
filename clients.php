@@ -38,9 +38,9 @@ AuthCheck('','login.php');
                 ?>
             </p>
             <ul class="header_links"> 
-                <li><a href="">Клиенты</a></li>
-                <li><a href="">Товары</a></li>
-                <li><a href="">Заказы</a></li>
+                <li><a href="clients.php">Клиенты</a></li>
+                <li><a href="products.php">Товары</a></li>
+                <li><a href="orders.php">Заказы</a></li>
             </ul>
             <a href = '?do=logout' class="header_logout">Выйти</a>
         </div>
@@ -48,14 +48,17 @@ AuthCheck('','login.php');
     <main>
         <section class="filters">
             <div class="container">
-                <form action="">
+                <form action = "" method = "GET" class = "main_form">
                     <i class="fa fa-address-book" aria-hidden="true"></i>
                     <label for="search">Поиск по имени</label>
                     <input type="text" id="search" name="search" placeholder="Александр">
                     <select name="sort" id="sort">
-                        <option value="0">По возрастанию</option>
-                        <option value="1">По убыванию</option>
+                        <option value="">По умолчанию</option>
+                        <option value="ASC">По возрастанию</option>
+                        <option value="DESC">По убыванию </option>
                     </select>
+                    <button class = "search" type = "submit">Поиск</button>
+                    <a class = "search" href="?">Сбросить</a>
                 </form>
             </div>
         </section>
@@ -83,307 +86,18 @@ AuthCheck('','login.php');
                             
                             require_once 'api/db.php';
                             require_once 'api/clients/OutputClients.php';
+                            require_once 'api/clients/ClientsSearch.php';
 
-                            $clients = $db->query(
-                                "SELECT * FROM clients
-                                 ") ->fetchAll();
+
+                            $clients = ClientsSearch($_GET, $db);
+                            
+                            // $clients = $db->query(
+                            //     "SELECT * FROM clients
+                            //      ") ->fetchAll();
                             
                             OutputClients($clients);
                         ?>
-                        <tr>
-                            <td>0</td>
-                            <td>Манда Ирина Ивановна</td>
-                            <td>example@mail.com</td>
-                            <td>8-900-35-55-33</td>
-                            <td>20.02.2000</td>
-                            <td>10.10.2019</td>
-                            <td><i class="fa fa-history" aria-hidden="true" onclick="MicroModal.show('history-modal')"></i>
-                            </td>
-                            <td><i class="fa fa-pencil-square-o" aria-hidden="true" onclick="MicroModal.show('edit-modal')"></i>
-                            </td>
-                            <td><i class="fa fa-trash" aria-hidden="true" onclick="MicroModal.show('delete-modal')"></i>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>0</td>
-                            <td>Манда Ирина Ивановна</td>
-                            <td>example@mail.com</td>
-                            <td>8-900-35-55-33</td>
-                            <td>20.02.2000</td>
-                            <td>10.10.2019</td>
-                            <td><i class="fa fa-history" aria-hidden="true"></i>
-                            </td>
-                            <td><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                            </td>
-                            <td><i class="fa fa-trash" aria-hidden="true"></i>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>0</td>
-                            <td>Манда Ирина Ивановна</td>
-                            <td>example@mail.com</td>
-                            <td>8-900-35-55-33</td>
-                            <td>20.02.2000</td>
-                            <td>10.10.2019</td>
-                            <td><i class="fa fa-history" aria-hidden="true"></i>
-                            </td>
-                            <td><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                            </td>
-                            <td><i class="fa fa-trash" aria-hidden="true"></i>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>0</td>
-                            <td>Манда Ирина Ивановна</td>
-                            <td>example@mail.com</td>
-                            <td>8-900-35-55-33</td>
-                            <td>20.02.2000</td>
-                            <td>10.10.2019</td>
-                            <td><i class="fa fa-history" aria-hidden="true"></i>
-                            </td>
-                            <td><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                            </td>
-                            <td><i class="fa fa-trash" aria-hidden="true"></i>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>0</td>
-                            <td>Манда Ирина Ивановна</td>
-                            <td>example@mail.com</td>
-                            <td>8-900-35-55-33</td>
-                            <td>20.02.2000</td>
-                            <td>10.10.2019</td>
-                            <td><i class="fa fa-history" aria-hidden="true"></i>
-                            </td>
-                            <td><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                            </td>
-                            <td><i class="fa fa-trash" aria-hidden="true"></i>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>0</td>
-                            <td>Манда Ирина Ивановна</td>
-                            <td>example@mail.com</td>
-                            <td>8-900-35-55-33</td>
-                            <td>20.02.2000</td>
-                            <td>10.10.2019</td>
-                            <td><i class="fa fa-history" aria-hidden="true"></i>
-                            </td>
-                            <td><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                            </td>
-                            <td><i class="fa fa-trash" aria-hidden="true"></i>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>0</td>
-                            <td>Манда Ирина Ивановна</td>
-                            <td>example@mail.com</td>
-                            <td>8-900-35-55-33</td>
-                            <td>20.02.2000</td>
-                            <td>10.10.2019</td>
-                            <td><i class="fa fa-history" aria-hidden="true"></i>
-                            </td>
-                            <td><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                            </td>
-                            <td><i class="fa fa-trash" aria-hidden="true"></i>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>0</td>
-                            <td>Манда Ирина Ивановна</td>
-                            <td>example@mail.com</td>
-                            <td>8-900-35-55-33</td>
-                            <td>20.02.2000</td>
-                            <td>10.10.2019</td>
-                            <td><i class="fa fa-history" aria-hidden="true"></i>
-                            </td>
-                            <td><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                            </td>
-                            <td><i class="fa fa-trash" aria-hidden="true"></i>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>0</td>
-                            <td>Манда Ирина Ивановна</td>
-                            <td>example@mail.com</td>
-                            <td>8-900-35-55-33</td>
-                            <td>20.02.2000</td>
-                            <td>10.10.2019</td>
-                            <td><i class="fa fa-history" aria-hidden="true"></i>
-                            </td>
-                            <td><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                            </td>
-                            <td><i class="fa fa-trash" aria-hidden="true"></i>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>0</td>
-                            <td>Манда Ирина Ивановна</td>
-                            <td>example@mail.com</td>
-                            <td>8-900-35-55-33</td>
-                            <td>20.02.2000</td>
-                            <td>10.10.2019</td>
-                            <td><i class="fa fa-history" aria-hidden="true"></i>
-                            </td>
-                            <td><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                            </td>
-                            <td><i class="fa fa-trash" aria-hidden="true"></i>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>0</td>
-                            <td>Манда Ирина Ивановна</td>
-                            <td>example@mail.com</td>
-                            <td>8-900-35-55-33</td>
-                            <td>20.02.2000</td>
-                            <td>10.10.2019</td>
-                            <td><i class="fa fa-history" aria-hidden="true"></i>
-                            </td>
-                            <td><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                            </td>
-                            <td><i class="fa fa-trash" aria-hidden="true"></i>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>0</td>
-                            <td>Манда Ирина Ивановна</td>
-                            <td>example@mail.com</td>
-                            <td>8-900-35-55-33</td>
-                            <td>20.02.2000</td>
-                            <td>10.10.2019</td>
-                            <td><i class="fa fa-history" aria-hidden="true"></i>
-                            </td>
-                            <td><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                            </td>
-                            <td><i class="fa fa-trash" aria-hidden="true"></i>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>0</td>
-                            <td>Манда Ирина Ивановна</td>
-                            <td>example@mail.com</td>
-                            <td>8-900-35-55-33</td>
-                            <td>20.02.2000</td>
-                            <td>10.10.2019</td>
-                            <td><i class="fa fa-history" aria-hidden="true"></i>
-                            </td>
-                            <td><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                            </td>
-                            <td><i class="fa fa-trash" aria-hidden="true"></i>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>0</td>
-                            <td>Манда Ирина Ивановна</td>
-                            <td>example@mail.com</td>
-                            <td>8-900-35-55-33</td>
-                            <td>20.02.2000</td>
-                            <td>10.10.2019</td>
-                            <td><i class="fa fa-history" aria-hidden="true"></i>
-                            </td>
-                            <td><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                            </td>
-                            <td><i class="fa fa-trash" aria-hidden="true"></i>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>0</td>
-                            <td>Манда Ирина Ивановна</td>
-                            <td>example@mail.com</td>
-                            <td>8-900-35-55-33</td>
-                            <td>20.02.2000</td>
-                            <td>10.10.2019</td>
-                            <td><i class="fa fa-history" aria-hidden="true"></i>
-                            </td>
-                            <td><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                            </td>
-                            <td><i class="fa fa-trash" aria-hidden="true"></i>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>0</td>
-                            <td>Манда Ирина Ивановна</td>
-                            <td>example@mail.com</td>
-                            <td>8-900-35-55-33</td>
-                            <td>20.02.2000</td>
-                            <td>10.10.2019</td>
-                            <td><i class="fa fa-history" aria-hidden="true"></i>
-                            </td>
-                            <td><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                            </td>
-                            <td><i class="fa fa-trash" aria-hidden="true"></i>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>0</td>
-                            <td>Манда Ирина Ивановна</td>
-                            <td>example@mail.com</td>
-                            <td>8-900-35-55-33</td>
-                            <td>20.02.2000</td>
-                            <td>10.10.2019</td>
-                            <td><i class="fa fa-history" aria-hidden="true"></i>
-                            </td>
-                            <td><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                            </td>
-                            <td><i class="fa fa-trash" aria-hidden="true"></i>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>0</td>
-                            <td>Манда Ирина Ивановна</td>
-                            <td>example@mail.com</td>
-                            <td>8-900-35-55-33</td>
-                            <td>20.02.2000</td>
-                            <td>10.10.2019</td>
-                            <td><i class="fa fa-history" aria-hidden="true"></i>
-                            </td>
-                            <td><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                            </td>
-                            <td><i class="fa fa-trash" aria-hidden="true"></i>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>0</td>
-                            <td>Манда Ирина Ивановна</td>
-                            <td>example@mail.com</td>
-                            <td>8-900-35-55-33</td>
-                            <td>20.02.2000</td>
-                            <td>10.10.2019</td>
-                            <td><i class="fa fa-history" aria-hidden="true"></i>
-                            </td>
-                            <td><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                            </td>
-                            <td><i class="fa fa-trash" aria-hidden="true"></i>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>0</td>
-                            <td>Манда Ирина Ивановна</td>
-                            <td>example@mail.com</td>
-                            <td>8-900-35-55-33</td>
-                            <td>20.02.2000</td>
-                            <td>10.10.2019</td>
-                            <td><i class="fa fa-history" aria-hidden="true"></i>
-                            </td>
-                            <td><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                            </td>
-                            <td><i class="fa fa-trash" aria-hidden="true"></i>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>0</td>
-                            <td>Манда Ирина Ивановна</td>
-                            <td>example@mail.com</td>
-                            <td>8-900-35-55-33</td>
-                            <td>20.02.2000</td>
-                            <td>10.10.2019</td>
-                            <td><i class="fa fa-history" aria-hidden="true"></i>
-                            </td>
-                            <td><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                            </td>
-                            <td><i class="fa fa-trash" aria-hidden="true"></i>
-                            </td>
-                        </tr>
+                  
                     </tbody>
                 </table>
             </div>
@@ -402,22 +116,22 @@ AuthCheck('','login.php');
               <button class="modal__close" aria-label="Close modal" data-micromodal-close></button>
             </header>
             <main class="modal__content" id="modal-1-content">
-                <form>
+                <form action = "api/clients/AddClients.php" method = "POST">
                     <div class="form-group">
-                        <label for="full-name">ФИО</label>
-                        <input type="text" id="full-name" name="full-name" placeholder="Введите ваше ФИО" required>
+                        <label for="fullname">ФИО</label>
+                        <input type="text" id="fullname" name="fullname" placeholder="Введите ваше ФИО" >
                     </div>
                     <div class="form-group">
                         <label for="email">Почта</label>
-                        <input type="email" id="email" name="email" placeholder="Введите вашу почту" required>
+                        <input type="email" id="email" name="email" placeholder="Введите вашу почту" >
                     </div>
                     <div class="form-group">
                         <label for="phone">Телефон</label>
-                        <input type="tel" id="phone" name="phone" placeholder="Введите ваш телефон" required>
+                        <input type="tel" id="phone" name="phone" placeholder="Введите ваш телефон" >
                     </div>
                     <div class="form-group">
                         <label for="birthdate">День рождения</label>
-                        <input type="date" id="birthdate" name="birthdate" required>
+                        <input type="date" id="birthdate" name="birthdate" >
                     </div>
                     <div class="button-group">
                         <button type="submit" class="create">Создать</button>
@@ -521,6 +235,22 @@ AuthCheck('','login.php');
               </div>
             </div>
           </div>
+
+          <div class="modal micromodal-slide open" id="error-modal" aria-hidden="true" >
+        <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+          <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="modal-1-title">
+            <header class="modal__header">
+              <h2 class="modal__title" id="modal-1-title">
+               Ошибка
+              </h2>
+              <button class="modal__close" aria-label="Close modal" data-micromodal-close></button>
+            </header>
+            <main class="modal__content" id="modal-1-content">
+                <p>ТЕКСТ ОШИБКИ</p>
+            </main>
+          </div>
+        </div>
+      </div>
        
 
     <script defer src="https://unpkg.com/micromodal/dist/micromodal.min.js"></script>
