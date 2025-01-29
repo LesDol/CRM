@@ -105,6 +105,36 @@ AuthCheck('','login.php');
         </section>
     </main>
 
+
+
+<div class="modal micromodal-slide     
+<?php
+    if(isset($_SESSION['clients_errors']) && !empty($_SESSION['clients_errors'])){
+      echo "open";
+    }
+    ?>" id="error-modal" aria-hidden="true">
+        <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+          <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="modal-1-title">
+            <header class="modal__header">
+              <h2 class="modal__title" id="modal-1-title">
+                Ошибка
+              </h2>
+              <button class="modal__close" aria-label="Close modal" data-micromodal-close></button>
+            </header>
+            <main class="modal__content" id="modal-1-content">
+              <?php
+                 if(isset($_SESSION['clients_errors']) && !empty($_SESSION['clients_errors'])){
+                  echo  $_SESSION['clients_errors'];
+                  $_SESSION['clients_errors'] = '';
+                }
+              ?>
+            </main>
+          </div>
+        </div>
+      </div>
+
+    
+
     
     <div class="modal micromodal-slide" id="add-modal" aria-hidden="true">
         <div class="modal__overlay" tabindex="-1" data-micromodal-close>
@@ -176,15 +206,15 @@ AuthCheck('','login.php');
                     <form>
                         <div class="form-group">
                             <label for="full-name">ФИО</label>
-                            <input type="text" id="full-name" name="full-name" placeholder="Введите ваше ФИО" required>
+                            <input type="text" id="full-name" name="full-name" placeholder="Введите ваше ФИО" >
                         </div>
                         <div class="form-group">
                             <label for="email">Почта</label>
-                            <input type="email" id="email" name="email" placeholder="Введите вашу почту" required>
+                            <input type="email" id="email" name="email" placeholder="Введите вашу почту" >
                         </div>
                         <div class="form-group">
                             <label for="phone">Телефон</label>
-                            <input type="tel" id="phone" name="phone" placeholder="Введите ваш телефон" required>
+                            <input type="tel" id="phone" name="phone" placeholder="Введите ваш телефон" >
                         </div>
                         <div class="button-group">
                             <button type="submit" class="create">Сохранить</button>
@@ -236,7 +266,12 @@ AuthCheck('','login.php');
             </div>
           </div>
 
-          <div class="modal micromodal-slide open" id="error-modal" aria-hidden="true" >
+          <div class="modal micromodal-slide <?php
+          if(isset($_SESSION["clients_errors"]) && !empty($_SESSION["clients_errors"])){
+              echo "open";
+          }
+          
+          ?>" id="error-modal" aria-hidden="true" >
         <div class="modal__overlay" tabindex="-1" data-micromodal-close>
           <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="modal-1-title">
             <header class="modal__header">
