@@ -22,12 +22,15 @@ function OutputClients($clients) {
                 <td>$created_at</td>
                 <td><i class='fa fa-history' aria-hidden='true' onclick='MicroModal.show(\"history-modal\")'></i></td>
                 <td><i class='fa fa-pencil-square-o' aria-hidden='true' onclick='MicroModal.show(\"edit-modal\")'></i></td>
-                <td><i class='fa fa-trash' aria-hidden='true' onclick='MicroModal.show(\"delete-modal\")'></i></td>
+                 <td><a href='api/clients/DeleteClients.php'>
+                 <i class='fa fa-trash' aria-hidden='true' ></i>
+                </a>
+                 </td>
             </tr>
         ";
     }
 }
 
-
+// <td><i class='fa fa-trash' aria-hidden='true' onclick='MicroModal.show(\"delete-modal\")'></i></td>
 
 ?>
