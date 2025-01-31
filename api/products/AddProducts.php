@@ -46,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
     if (empty($existingProduct)) {
         $request = $db->prepare("
-            INSERT INTO products (name, `desc`, price, stock) 
+            INSERT INTO products (name, desc, price, stock) 
             VALUES (?, ?, ?, ?)
         ")->execute([
             $formData['name'],

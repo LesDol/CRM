@@ -38,9 +38,9 @@ AuthCheck('','login.php');
                 ?>
             </p>
             <ul class="header_links"> 
-                <li><a href="">Клиенты</a></li>
-                <li><a href="">Товары</a></li>
-                <li><a href="">Заказы</a></li>
+                <li><a href="clients.php">Клиенты</a></li>
+                <li><a href="products.php">Товары</a></li>
+                <li><a href="orders.php">Заказы</a></li>
             </ul>
             <a href = '?do=logout' class="header_logout">Выйти</a>
         </div>
@@ -61,6 +61,8 @@ AuthCheck('','login.php');
                         <option value="0">По возрастанию</option>
                         <option value="1">По убыванию</option>
                     </select>
+                    <button class = "search" type = "submit">Поиск</button>
+                    <a class = "search" href="?">Сбросить</a>
                 </form>
             </div>
         </section>
@@ -86,7 +88,35 @@ AuthCheck('','login.php');
                         <th>подробнее</th>
                     </thead>
                     <tbody>
-                        <tr>
+
+                        <?php 
+
+                            require_once 'api/db.php';
+                            require_once 'api/orders/OutputOrder.php';
+                            //require_once 'api/oredrs/OredrsSearch.php';
+                            $order = $db->query(
+                            "SELECT orders.id , 
+                            clients.name , 
+                            orders.order_date , 
+                            orders.total , 
+                            GROUP_CONCAT(products.name SEPARATOR ', ') AS product_names
+                            FROM 
+                            orders 
+                            JOIN 
+                            clients ON orders.client_id = clients.id 
+                            JOIN 
+                            order_items ON orders.id = order_items.order_id 
+                            JOIN 
+                            products ON order_items.product_id = product_id
+                            GROUP BY
+                            orders.id, clients.name, orders.order_date, orders.total;
+                                 ") ->fetchAll();
+                            OutputOrders($order);
+                            //$clients = ClientsSearch($_GET, $db);
+
+                            ?>
+
+                        <!-- <tr>
                             <td>0</td>
                             <td>Надежда Адольфовна</td>
                             <td>2000-02-02</td>
@@ -102,9 +132,7 @@ AuthCheck('','login.php');
                             </td>
                             <td><i class="fa fa-info-circle fa-1x" aria-hidden="true" onclick="MicroModal.show('info-modal')"></i>
                             </td>
-
-
-                        </tr>
+                        </tr> -->
 
                     </tbody>
                 </table>

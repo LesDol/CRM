@@ -23,6 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
     if (!empty($errors)) {
         ob_start();
+
         echo '<ul class="error-list">';
         foreach ($errors as $field => $messages) {
             foreach ($messages as $message) {

@@ -131,19 +131,19 @@ AuthCheck('','login.php');
                 <form action = "api/products/AddProducts.php" method = "POST">
                     <div class="form-group">
                         <label for="name">Название</label>
-                        <input type="text" id="name" name="name" placeholder="Введите название товара" required>
+                        <input type="text" id="name" name="name" placeholder="Введите название товара" >
                     </div>
                     <div class="form-group">
                         <label for="desc">Описание</label>
-                        <input type="text" id="desc" name="desc" placeholder="Введите описание товара" required>
+                        <input type="text" id="desc" name="desc" placeholder="Введите описание товара" >
                     </div>
                     <div class="form-group">
                         <label for="price">Цена</label>
-                        <input type="decimal" id="price" name="price" placeholder="Введите цену товара" required>
+                        <input type="decimal" id="price" name="price" placeholder="Введите цену товара" >
                     </div>
                     <div class="form-group">
                         <label for="stock">Количество</label>
-                        <input type="int" id="stock" name="stock" placeholder="Введите количество товара" required>
+                        <input type="int" id="stock" name="stock" placeholder="Введите количество товара" >
                     </div>
                     <div class="button-group">
                         <button type="submit" class="create">Создать</button>
@@ -166,8 +166,8 @@ AuthCheck('','login.php');
             <main class="modal__content" id="modal-1-content">
                 <form>
                     <div class="form-group">
-                        <label for="full-name">Название</label>
-                        <input type="text" id="full-name" name="full-name" placeholder="Введите название товара" required>
+                        <label for="name">Название</label>
+                        <input type="text" id="name" name="name" placeholder="Введите название товара" required>
                     </div>
                     <div class="form-group">
                         <label for="desc">Описание</label>
@@ -190,15 +190,44 @@ AuthCheck('','login.php');
           </div>
         </div>
       </div>
+
+
+
+
+      <div class="modal micromodal-slide     
+<?php
+    if(isset($_SESSION['products_errors']) && !empty($_SESSION['products_errors'])){
+      echo "open";
+    }
+    ?>" id="error-modal" aria-hidden="true">
+        <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+          <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="modal-1-title">
+            <header class="modal__header">
+              <h2 class="modal__title" id="modal-1-title">
+                Ошибка
+              </h2>
+              <button class="modal__close" aria-label="Close modal" data-micromodal-close></button>
+            </header>
+            <main class="modal__content" id="modal-1-content">
+              <?php
+                 if(isset($_SESSION['products_errors']) && !empty($_SESSION['products_errors'])){
+                  echo  $_SESSION['products_errors'];
+                  $_SESSION['products_errors'] = '';
+                }
+              ?>
+            </main>
+          </div>
+        </div>
+      </div>
+
+
+
+
+
+
+
       <script defer src="https://unpkg.com/micromodal/dist/micromodal.min.js"></script>
       <script defer src="scripts/initClientsModal.js"></script>
-    <!-- 1. Дублировать хедер
-    2. Форма для фильтрации . сортировки (
-        инпут (поиск по названию) , селект (название , цена , количество ), 
-        селект (по убыванию , по возрастанию ))
-    3. Кнопка для добавления + таблица товаров
-    (ид , название , описание , цена , количество , кнопки , редактировать , удаоить , создать qr)
-    4. Модальное окнодля добавления товара
-    5. Модальное окно для редактирования товара    -->
+
 </body>
 </html>
