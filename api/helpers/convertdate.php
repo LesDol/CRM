@@ -7,11 +7,11 @@ function formatOrderDate($orderDate) {
         return "Неверный формат даты";
     }
 
-    return $dateTime->format('d.m.Y H:i');
+    return $dateTime->format('H:i | d.m.Y');
 }
 
 $orderDate = '2025-01-13 09:25:36';
 $formattedDate = formatOrderDate($orderDate);
-echo $formattedDate; 
+
 ?>
 

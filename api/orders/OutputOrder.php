@@ -2,13 +2,14 @@
 
 
 function OutputOrders($clients) {
+    require_once 'api/helpers/convertdate.php';
     foreach ($clients as $client) {
         // Извлекаем данные клиента
         $id = htmlspecialchars($client['id']);
         $name = htmlspecialchars($client['name']);
-        $order_date = htmlspecialchars($client['order_date']);
+        $order_date = formatOrderDate($client['order_date']);
         $total = htmlspecialchars($client['total']);
-        $product_names = htmlspecialchars($client['product_names']);
+        $product_names = str_replace(",", "<br/>",$client['product_names']);
 
 
         // Выводим строку таблицы с данными клиента
@@ -20,8 +21,6 @@ function OutputOrders($clients) {
                             <td>$order_date</td>
                             <td>$total</td>
                             <td>$product_names</td>
-                            <td>2 шт.</td> 
-                            <td>2$</td>
                             <td><i class='fa fa-pencil-square-o fa-1x' aria-hidden='true' onclick=\"MicroModal.show('edit-modal')\"></i>
                             </td>
                             <td><i class='fa fa-trash fa-1x' aria-hidden='true' onclick=\"MicroModal.show('delete-modal')\"></i>

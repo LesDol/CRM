@@ -38,9 +38,9 @@ AuthCheck('','login.php');
                 ?>
             </p>
             <ul class="header_links"> 
-                <li><a href="">Клиенты</a></li>
-                <li><a href="">Товары</a></li>
-                <li><a href="">Заказы</a></li>
+                <li><a href="clients.php">Клиенты</a></li>
+                <li><a href="products.php">Товары</a></li>
+                <li><a href="orders.php">Заказы</a></li>
             </ul>
             <a href = '?do=logout' class="header_logout">Выйти</a>
         </div>
@@ -48,19 +48,22 @@ AuthCheck('','login.php');
     <main>
         <section class="filters">
             <div class="container">
-                <form action="">
+                <form action=""  method = "GET">
                     <i class="fa fa-address-book" aria-hidden="true"></i>
                     <label for="search">Поиск по названию</label>
                     <input type="text" id="search" name="search" placeholder="Негр">
-                    <select name="sort" id="sort">
-                        <option value="0">Название</option>
-                        <option value="1">Цена</option>
-                        <option value="2">Количество</option>
+                    <select name="search_name" id="search_name" id = "sort1">
+                        <option value="name">Название</option>
+                        <option value="price">Цена</option>
+                        <option value="stock">Количество</option>
                     </select>
                     <select name="sort" id="sort">
-                        <option value="0">По возрастанию</option>
-                        <option value="1">По убыванию</option>
+                        <option value="">По умолчанию</option>
+                        <option value="ASC">По возрастанию</option>
+                        <option value="DESC">По убыванию </option>
                     </select>
+                    <button class = "search" type = "submit">Поиск</button>
+                    <a class = "search" href="?">Сбросить</a>
                 </form>
             </div>
         </section>
@@ -85,7 +88,17 @@ AuthCheck('','login.php');
                         
                     </thead>
                     <tbody>
-                        <tr>
+                    <?php
+                            
+                            require_once 'api/db.php';
+                            require_once 'api/products/OutputProducts.php';
+                            require_once 'api/products/ProductsSearch.php';
+
+
+                            $products = ProductsSearch($_GET, $db);
+                            OutputProducts($products);
+                        ?>
+                        <!-- <tr>
                             <td>0</td>
                             <td>НЕГР</td>
                             <td>Много работает , любит собирать хлопок под полящим солнцем</td>
@@ -97,9 +110,7 @@ AuthCheck('','login.php');
                             </td>
                             <td><i class="fa fa-qrcode fa-1x" aria-hidden="true" onclick="MicroModal.show('history-modal')"></i>
                             </td>
-
-
-                        </tr>
+                        </tr> -->
 
                     </tbody>
                 </table>
@@ -117,22 +128,22 @@ AuthCheck('','login.php');
               <button class="modal__close" aria-label="Close modal" data-micromodal-close></button>
             </header>
             <main class="modal__content" id="modal-1-content">
-                <form>
+                <form action = "api/products/AddProducts.php" method = "POST">
                     <div class="form-group">
-                        <label for="full-name">Название</label>
-                        <input type="text" id="full-name" name="full-name" placeholder="Введите название товара" required>
+                        <label for="name">Название</label>
+                        <input type="text" id="name" name="name" placeholder="Введите название товара" >
                     </div>
                     <div class="form-group">
                         <label for="desc">Описание</label>
-                        <input type="text" id="desc" name="desc" placeholder="Введите описание товара" required>
+                        <input type="text" id="desc" name="desc" placeholder="Введите описание товара" >
                     </div>
                     <div class="form-group">
                         <label for="price">Цена</label>
-                        <input type="text" id="price" name="price" placeholder="Введите цену товара" required>
+                        <input type="decimal" id="price" name="price" placeholder="Введите цену товара" >
                     </div>
                     <div class="form-group">
-                        <label for="cout">Количество</label>
-                        <input type="text" id="cout" name="cout" placeholder="Введите количество товара" required>
+                        <label for="stock">Количество</label>
+                        <input type="int" id="stock" name="stock" placeholder="Введите количество товара" >
                     </div>
                     <div class="button-group">
                         <button type="submit" class="create">Создать</button>
@@ -155,8 +166,8 @@ AuthCheck('','login.php');
             <main class="modal__content" id="modal-1-content">
                 <form>
                     <div class="form-group">
-                        <label for="full-name">Название</label>
-                        <input type="text" id="full-name" name="full-name" placeholder="Введите название товара" required>
+                        <label for="name">Название</label>
+                        <input type="text" id="name" name="name" placeholder="Введите название товара" required>
                     </div>
                     <div class="form-group">
                         <label for="desc">Описание</label>
@@ -179,15 +190,44 @@ AuthCheck('','login.php');
           </div>
         </div>
       </div>
+
+
+
+
+      <div class="modal micromodal-slide     
+<?php
+    if(isset($_SESSION['products_errors']) && !empty($_SESSION['products_errors'])){
+      echo "open";
+    }
+    ?>" id="error-modal" aria-hidden="true">
+        <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+          <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="modal-1-title">
+            <header class="modal__header">
+              <h2 class="modal__title" id="modal-1-title">
+                Ошибка
+              </h2>
+              <button class="modal__close" aria-label="Close modal" data-micromodal-close></button>
+            </header>
+            <main class="modal__content" id="modal-1-content">
+              <?php
+                 if(isset($_SESSION['products_errors']) && !empty($_SESSION['products_errors'])){
+                  echo  $_SESSION['products_errors'];
+                  $_SESSION['products_errors'] = '';
+                }
+              ?>
+            </main>
+          </div>
+        </div>
+      </div>
+
+
+
+
+
+
+
       <script defer src="https://unpkg.com/micromodal/dist/micromodal.min.js"></script>
       <script defer src="scripts/initClientsModal.js"></script>
-    <!-- 1. Дублировать хедер
-    2. Форма для фильтрации . сортировки (
-        инпут (поиск по названию) , селект (название , цена , количество ), 
-        селект (по убыванию , по возрастанию ))
-    3. Кнопка для добавления + таблица товаров
-    (ид , название , описание , цена , количество , кнопки , редактировать , удаоить , создать qr)
-    4. Модальное окнодля добавления товара
-    5. Модальное окно для редактирования товара    -->
+
 </body>
 </html>

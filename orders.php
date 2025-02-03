@@ -38,9 +38,9 @@ AuthCheck('','login.php');
                 ?>
             </p>
             <ul class="header_links"> 
-                <li><a href="">Клиенты</a></li>
-                <li><a href="">Товары</a></li>
-                <li><a href="">Заказы</a></li>
+                <li><a href="clients.php">Клиенты</a></li>
+                <li><a href="products.php">Товары</a></li>
+                <li><a href="orders.php">Заказы</a></li>
             </ul>
             <a href = '?do=logout' class="header_logout">Выйти</a>
         </div>
@@ -48,19 +48,23 @@ AuthCheck('','login.php');
     <main>
         <section class="filters">
             <div class="container">
-                <form action="">
+            <form action=""  method = "GET">
                     <i class="fa fa-address-book" aria-hidden="true"></i>
                     <label for="search">Поиск по названию</label>
                     <input type="text" id="search" name="search" placeholder="Негр">
-                    <select name="sort" id="sort">
-                        <option value="0">Название</option>
-                        <option value="1">Цена</option>
-                        <option value="2">Количество</option>
+                    <select name="search_name" id="search_name" id = "sort1">
+                        <option value="clients.name">Имя клиента</option>
+                        <option value="orders.id">ИД</option>
+                        <option value="orders.order_date">Дата</option>
+                        <option value="orders.total">Цена</option>
                     </select>
                     <select name="sort" id="sort">
-                        <option value="0">По возрастанию</option>
-                        <option value="1">По убыванию</option>
+                        <option value="">По умолчанию</option>
+                        <option value="ASC">По возрастанию</option>
+                        <option value="DESC">По убыванию </option>
                     </select>
+                    <button class = "search" type = "submit">Поиск</button>
+                    <a class = "search" href="?">Сбросить</a>
                 </form>
             </div>
         </section>
@@ -77,34 +81,27 @@ AuthCheck('','login.php');
                         <th>ФИО клиента</th>
                         <th>дата заказа</th>
                         <th>цена</th>
-                        <th>название</th>
-                        <th>количество</th>
-                        <th>Итоговая цена</th>
+                        <th>Элементы заказа</th>
                         <th>Радактировать</th>
                         <th>Удалить</th>
                         <th>Генерация чека</th>
                         <th>подробнее</th>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>0</td>
-                            <td>Надежда Адольфовна</td>
-                            <td>2000-02-02</td>
-                            <td>1$</td>
-                            <td>НЕГР</td>
-                            <td>2 шт.</td> 
-                            <td>2$</td>
-                            <td><i class="fa fa-pencil-square-o fa-1x" aria-hidden="true" onclick="MicroModal.show('edit-modal')"></i>
-                            </td>
-                            <td><i class="fa fa-trash fa-1x" aria-hidden="true" onclick="MicroModal.show('delete-modal')"></i>
-                            </td>
-                            <td><i class="fa fa-qrcode fa-1x" aria-hidden="true" onclick="MicroModal.show('history-modal')"></i>
-                            </td>
-                            <td><i class="fa fa-info-circle fa-1x" aria-hidden="true" onclick="MicroModal.show('info-modal')"></i>
-                            </td>
+
+                        <?php 
+
+                            require_once 'api/db.php';
+                            require_once 'api/orders/OutputOrder.php';
+                            require_once 'api/orders/OrderSearch.php';
+
+                            $order = OrdersSearch($_GET, $db);
+ 
+                            OutputOrders($order);
 
 
-                        </tr>
+                            ?>
+
 
                     </tbody>
                 </table>
@@ -112,32 +109,83 @@ AuthCheck('','login.php');
             </div>
         </section>
     </main>
+
+    <div class="modal micromodal-slide     
+<?php
+    if(isset($_SESSION['orders_errors']) && !empty($_SESSION['orders_errors'])){
+      echo "open";
+    }
+    ?>" id="error-modal" aria-hidden="true">
+        <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+          <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="modal-1-title">
+            <header class="modal__header">
+              <h2 class="modal__title" id="modal-1-title">
+                Ошибка
+              </h2>
+              <button class="modal__close" aria-label="Close modal" data-micromodal-close></button>
+            </header>
+            <main class="modal__content" id="modal-1-content">
+              <?php
+                 if(isset($_SESSION['orders_errors']) && !empty($_SESSION['orders_errors'])){
+                  echo  $_SESSION['orders_errors'];
+                  $_SESSION['orders_errors'] = '';
+                }
+              ?>
+            </main>
+          </div>
+        </div>
+      </div>
+
+
+
     <div class="modal micromodal-slide" id="add-modal" aria-hidden="true">
         <div class="modal__overlay" tabindex="-1" data-micromodal-close>
           <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="modal-1-title">
             <header class="modal__header">
               <h2 class="modal__title" id="modal-1-title">
-                Добавить товар
+                Создать заказ
               </h2>
               <button class="modal__close" aria-label="Close modal" data-micromodal-close></button>
             </header>
             <main class="modal__content" id="modal-1-content">
-                <form>
+                <form action = "api/orders/AddOrders.php" method = "POST">
                     <div class="form-group">
-                        <label for="full-name">Название</label>
-                        <input type="text" id="full-name" name="full-name" placeholder="Введите название товара" required>
+                        <label for="client">Клиент</label>
+                        <select class = "main_select" name="clients" id="clients">
+                            <?php
+                            $clients = $db->query(
+                                "SELECT id , name FROM clients 
+                                ") ->fetchAll(); 
+
+                                foreach($clients as $key => $client){
+                                    $id = $client['id'];
+                                    $name = $client['name'];
+                                    echo "<option value='$id'>$name</option>";
+
+                                }
+
+                            ?>
+                        </select>
                     </div>
                     <div class="form-group">
-                        <label for="desc">Описание</label>
-                        <input type="text" id="desc" name="desc" placeholder="Введите описание товара" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="price">Цена</label>
-                        <input type="text" id="price" name="price" placeholder="Введите цену товара" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="cout">Количество</label>
-                        <input type="text" id="cout" name="cout" placeholder="Введите количество товара" required>
+                        <label for="products">Товары</label>
+                        <select class = "main_select" name="products" id="products" multiple>
+                        <?php
+                            $products = $db->query(
+                                "SELECT id , name , price , stock FROM products WHERE stock > 0 
+                                ") ->fetchAll(); 
+
+                                foreach($products as $key => $product){
+                                    $id = $product['id'];
+                                    $name = $product['name'];
+                                    $price = $product['price'];
+                                    $stock = $product['stock'];
+
+                                    echo "<option value='$id'>$name : $price\$ : $stock шт.</option>";
+                                }
+
+                            ?>
+                        </select>
                     </div>
                     <div class="button-group">
                         <button type="submit" class="create">Создать</button>
@@ -153,7 +201,7 @@ AuthCheck('','login.php');
           <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="modal-1-title">
             <header class="modal__header">
               <h2 class="modal__title" id="modal-1-title">
-                Редактировать товар
+                Редактировать заказ
               </h2>
               <button class="modal__close" aria-label="Close modal" data-micromodal-close></button>
             </header>

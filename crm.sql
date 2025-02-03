@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1
--- Время создания: Янв 22 2025 г., 10:32
+-- Время создания: Фев 03 2025 г., 09:16
 -- Версия сервера: 10.4.32-MariaDB
 -- Версия PHP: 8.2.12
 
@@ -43,7 +43,7 @@ CREATE TABLE `clients` (
 INSERT INTO `clients` (`id`, `name`, `email`, `phone`, `birthday`, `created_at`) VALUES
 (1, 'Ivan Ivanov', 'ivan.ivanov@example.com', '+79991234567', '1985-05-15', '2025-01-13 06:21:57'),
 (2, 'Maria Petrovna', 'maria.petrova@example.com', '+79991234568', '1990-07-20', '2025-01-13 06:21:57'),
-(3, 'Sergei Sidorov', 'sergey.sidorov@example.com', '+79991234569', '1988-03-30', '2025-01-13 06:21:57');
+(3, 'Ananist Sidorov', 'sergey.sidorov@example.com', '+79991234569', '1988-03-30', '2025-01-13 06:21:57');
 
 -- --------------------------------------------------------
 
@@ -66,7 +66,8 @@ CREATE TABLE `orders` (
 INSERT INTO `orders` (`id`, `client_id`, `order_date`, `total`, `status`) VALUES
 (1, 1, '2025-01-13 06:25:36', 300.00, 'Completed'),
 (2, 2, '2025-01-13 06:25:36', 150.50, 'Pending'),
-(3, 1, '2025-01-13 06:25:36', 200.00, '');
+(3, 1, '2025-01-13 06:25:36', 200.00, ''),
+(4, 3, '2025-01-08 07:53:39', 222.00, 'Pending');
 
 -- --------------------------------------------------------
 
@@ -82,6 +83,15 @@ CREATE TABLE `order_items` (
   `price` decimal(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Дамп данных таблицы `order_items`
+--
+
+INSERT INTO `order_items` (`id`, `order_id`, `product_id`, `quantity`, `price`) VALUES
+(2, 2, 3, 300, 100.00),
+(3, 4, 5, 223, 13231.00),
+(4, 1, 8, 12, 1488.00);
+
 -- --------------------------------------------------------
 
 --
@@ -95,6 +105,17 @@ CREATE TABLE `products` (
   `price` decimal(10,2) NOT NULL,
   `stock` int(11) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Дамп данных таблицы `products`
+--
+
+INSERT INTO `products` (`id`, `name`, `desc`, `price`, `stock`) VALUES
+(3, 'НЕГР', 'МНОГО РАБОТАЕТ', 1488.00, 228),
+(5, 'вапвап', 'фывавыа', 2312.00, 2313),
+(6, 'vc', 'cv', 0.00, 0),
+(8, 'asdf', 'dsf', 0.00, 22),
+(9, '', '', 0.00, 0);
 
 -- --------------------------------------------------------
 
@@ -116,7 +137,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `login`, `password`, `name`, `surname`, `token`) VALUES
-(1, 'admin', 'admin123', 'Administrator', 'AA', '228'),
+(1, 'admin', 'admin123', 'Administrator', 'AA', 'bG9naW49YWRtaW4mcGFzc3dvcmQ9YWRtaW4xMjMmdW5pcXVlPTE3Mzg1NTkyODE='),
 (2, 'manager', 'manager456', 'Manager', 'AA', '822'),
 (3, 'sales', 'sales789', 'Sales Representative', 'AA', '1488');
 
@@ -173,19 +194,19 @@ ALTER TABLE `clients`
 -- AUTO_INCREMENT для таблицы `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT для таблицы `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT для таблицы `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT для таблицы `users`
