@@ -48,7 +48,7 @@ AuthCheck('','login.php');
     <main>
         <section class="filters">
             <div class="container">
-            <form action=""  method = "GET">
+            <form action="api/orders/OrderSearch.php"  method = "GET">
                     <i class="fa fa-address-book" aria-hidden="true"></i>
                     <label for="search">Поиск по названию</label>
                     <input type="text" id="search" name="search" placeholder="Негр">
@@ -169,7 +169,7 @@ AuthCheck('','login.php');
                     </div>
                     <div class="form-group">
                         <label for="products">Товары</label>
-                        <select class = "main_select" name="products" id="products" multiple>
+                        <select class = "main_select" name="products[]" id="products" multiple>
                         <?php
                             $products = $db->query(
                                 "SELECT id , name , price , stock FROM products WHERE stock > 0 
@@ -242,7 +242,7 @@ AuthCheck('','login.php');
               <button class="modal__close" aria-label="Close modal" data-micromodal-close></button>
             </header>
             <main class="modal__content" id="modal-1-content">
-                <form>
+                <form >
                     <div class="button-group">
                         <button type="submit" class="create">Удалить</button>
                         <button type="button" class="cancel" onclick="window.location.reload();">Отменить</button>

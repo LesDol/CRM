@@ -45,14 +45,16 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
     )->fetchAll();
 
     if (empty($existingProduct)) {
-        $request = $db->prepare("
-            INSERT INTO products (name, desc, price, stock) 
-            VALUES (?, ?, ?, ?)
-        ")->execute([
-            $formData['name'],
-            $formData['desc'],
-            floatval($formData['price']),
-            intval($formData['stock'])
+        $stmt = $db->prepare("
+            INSERT INTO products (name, description, price, stock) 
+            VALUES (:name, :description, :price, :stock)
+        ");
+
+        $stmt->execute([
+            'name' => $formData['name'],
+            'description' => $formData['desc'],
+            'price' => $formData['price'],
+            'stock' => $formData['stock']
         ]);
         
         header("Location: ../../products.php");
