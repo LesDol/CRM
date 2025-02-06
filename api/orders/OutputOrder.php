@@ -9,8 +9,15 @@ function OutputOrders($clients) {
         $name = htmlspecialchars($client['name']);
         $order_date = formatOrderDate($client['order_date']);
         $total = htmlspecialchars($client['total']);
-        $product_names = str_replace(",", "<br/>",$client['product_names']);
-
+        $product_names = str_replace(",", "<br/>",$client['product_names']); 
+        $status = '';
+        if(htmlspecialchars($client['status']) === '0'){
+            $status = 'Не активен';
+        }
+        if(htmlspecialchars($client['status']) === '1'){
+            $status = 'Активен';
+        }
+       
 
         // Выводим строку таблицы с данными клиента
         echo "
@@ -21,6 +28,7 @@ function OutputOrders($clients) {
                             <td>$order_date</td>
                             <td>$total</td>
                             <td>$product_names</td>
+                            <td>$status</td>
                             <td><i class='fa fa-pencil-square-o fa-1x' aria-hidden='true' onclick=\"MicroModal.show('edit-modal')\"></i>
                             </td>
                             

@@ -48,7 +48,7 @@ AuthCheck('','login.php');
     <main>
         <section class="filters">
             <div class="container">
-            <form action="api/orders/OrderSearch.php"  method = "GET">
+            <form action=""  method = "GET">
                     <i class="fa fa-address-book" aria-hidden="true"></i>
                     <label for="search">Поиск по названию</label>
                     <input type="text" id="search" name="search" placeholder="Негр">
@@ -57,6 +57,7 @@ AuthCheck('','login.php');
                         <option value="orders.id">ИД</option>
                         <option value="orders.order_date">Дата</option>
                         <option value="orders.total">Цена</option>
+                        <option value="orders.status">Статус</option>
                     </select>
                     <select name="sort" id="sort">
                         <option value="">По умолчанию</option>
@@ -65,6 +66,8 @@ AuthCheck('','login.php');
                     </select>
                     <button class = "search" type = "submit">Поиск</button>
                     <a class = "search" href="?">Сбросить</a>
+                    <input type="checkbox" name="show_active" id="show_active" <?php echo isset($_GET['show_active']) ? 'checked' : ''; ?>>
+                    <label for="show_active">Показать не активные заказы</label>
                 </form>
             </div>
         </section>
@@ -82,6 +85,7 @@ AuthCheck('','login.php');
                         <th>дата заказа</th>
                         <th>цена</th>
                         <th>Элементы заказа</th>
+                        <th>Статус</th>
                         <th>Радактировать</th>
                         <th>Удалить</th>
                         <th>Генерация чека</th>
