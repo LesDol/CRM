@@ -1,7 +1,7 @@
 <?php
 
 session_start();
-
+require_once 'api/helpers/inputDefaultValue.php';
 if(isset($_GET['do']) && $_GET['do'] === 'logout'){
     require_once 'api/auth/LogoutUser.php';
     require_once 'api/db.php';
@@ -51,7 +51,7 @@ AuthCheck('','login.php');
             <form action=""  method = "GET">
                     <i class="fa fa-address-book" aria-hidden="true"></i>
                     <label for="search">Поиск по названию</label>
-                    <input type="text" id="search" name="search" placeholder="Негр">
+                    <input type="text" id="search" name="search" placeholder="Негр" <?php inputDefaultValue("search","");?>>
                     <select name="search_name" id="search_name" id = "sort1">
                         <option value="clients.name">Имя клиента</option>
                         <option value="orders.id">ИД</option>
@@ -155,7 +155,9 @@ AuthCheck('','login.php');
                 <form action = "api/orders/AddOrders.php" method = "POST">
                     <div class="form-group">
                         <label for="client">Клиент</label>
-                        <select class = "main_select" name="clients" id="clients">
+                        <select class = "main_select" name="client" id="client">
+
+                        <option value='new'>Новый пользователь</option>
                             <?php
                             $clients = $db->query(
                                 "SELECT id , name FROM clients 
@@ -170,6 +172,10 @@ AuthCheck('','login.php');
 
                             ?>
                         </select>
+                    </div>
+                    <div class="form-group" id="email-field">
+                      <label for="email">Почта</label>
+                      <input type="email" id = "email" name="email">
                     </div>
                     <div class="form-group">
                         <label for="products">Товары</label>
@@ -191,6 +197,7 @@ AuthCheck('','login.php');
                             ?>
                         </select>
                     </div>
+
                     <div class="button-group">
                         <button type="submit" class="create">Создать</button>
                         <button type="button" class="cancel" onclick="window.location.reload();">Отменить</button>
@@ -292,16 +299,17 @@ AuthCheck('','login.php');
                                             <td>1488 шт.</td>
                                             <td>1$</td>
                                         </tr>
-                                    </table>                              
+                              </table>                              
                         </div>
                     </form>
                 </main>
               </div>
             </div>
           </div>
-
+       
       <script defer src="https://unpkg.com/micromodal/dist/micromodal.min.js"></script>
-      <script defer src="scripts/initClientsModal.js"></script>
+      <script defer src="scripts/initClientsModal.js"></script> 
+      <script defer src="scripts/orders.js"></script>
 
 </body>
 </html>

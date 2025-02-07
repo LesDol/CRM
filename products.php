@@ -1,7 +1,7 @@
 <?php
 
 session_start();
-
+require_once 'api/helpers/inputDefaultValue.php';
 if(isset($_GET['do']) && $_GET['do'] === 'logout'){
     require_once 'api/auth/LogoutUser.php';
     require_once 'api/db.php';
@@ -51,7 +51,7 @@ AuthCheck('','login.php');
                 <form action=""  method = "GET">
                     <i class="fa fa-address-book" aria-hidden="true"></i>
                     <label for="search">Поиск по названию</label>
-                    <input type="text" id="search" name="search" placeholder="Негр">
+                    <input type="text" id="search" name="search" placeholder="Негр" <?php inputDefaultValue("search","");?>>
                     <select name="search_name" id="search_name" id = "sort1">
                         <option value="name">Название</option>
                         <option value="price">Цена</option>
