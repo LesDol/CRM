@@ -6,7 +6,7 @@ function OutputProducts($products) {
         // Извлекаем данные клиента
         $id = htmlspecialchars($product['id']);
         $name = htmlspecialchars($product['name']);
-        $desc = htmlspecialchars($product['desc']);
+        $desc = htmlspecialchars($product['description']);
         $price  = htmlspecialchars($product['price']);
         $stock = htmlspecialchars($product['stock']);
 

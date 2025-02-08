@@ -54,14 +54,41 @@ AuthCheck('','login.php');
                     <i class="fa fa-address-book" aria-hidden="true"></i>
                     <label for="search">Поиск</label>
                     <input type="text" id="search" name="search" placeholder="Александр" <?php inputDefaultValue("search","");?>>
-                    <select value = "email" name="search_name" id="search_name">
-                        <option value="name">По имени</option>
-                        <option value="email">По почте </option>
+                    <select value = "email" name="search_name" id="search_name" >
+                    <?php 
+                    $searchNameOptions = [
+                      [
+                        'key' => 'name',
+                        'value' => 'Поиск по имени'
+                    ],
+                    [
+                      'key' => 'email',
+                      'value' => 'Поиск по почте'
+                    ]
+                    ];
+                    selectDefaultValue("search_name",$searchNameOptions,"name");
+                    ?>
                     </select>
                     <select name="sort" id="sort">
-                        <option value="">По умолчанию</option>
-                        <option value="ASC">По возрастанию</option>
-                        <option value="DESC">По убыванию </option>
+
+
+                        <?php 
+                    $searchNameOptions = [
+                      [
+                        'key' => '',
+                        'value' => 'По умолчанию'
+                    ],
+                    [
+                      'key' => 'ASC',
+                      'value' => 'По возрастанию'
+                    ],
+                    [
+                      'key' => 'DESC',
+                      'value' => 'По убыванию'
+                    ]
+                    ];
+                    selectDefaultValue("sort",$searchNameOptions,"");
+                    ?>
                     </select>
                     <button class = "search" type = "submit">Поиск</button>
                     <a class = "search" href="?">Сбросить</a>

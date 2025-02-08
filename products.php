@@ -52,15 +52,44 @@ AuthCheck('','login.php');
                     <i class="fa fa-address-book" aria-hidden="true"></i>
                     <label for="search">Поиск по названию</label>
                     <input type="text" id="search" name="search" placeholder="Негр" <?php inputDefaultValue("search","");?>>
-                    <select name="search_name" id="search_name" id = "sort1">
-                        <option value="name">Название</option>
-                        <option value="price">Цена</option>
-                        <option value="stock">Количество</option>
+                    <select name="search_name" id="search_name">
+                        <?php 
+                    $searchNameOptions = [
+                      [
+                        'key' => 'name',
+                        'value' => 'Название'
+                    ],
+                        [
+                        'key' => 'price',
+                        'value' => 'Цена'
+                        ],
+                        [
+                        'key' => 'stock',
+                        'value' => 'Количество'
+                        ]
+                    ];
+                    selectDefaultValue("search_name",$searchNameOptions,"name");
+                    ?>
                     </select>
                     <select name="sort" id="sort">
-                        <option value="">По умолчанию</option>
-                        <option value="ASC">По возрастанию</option>
-                        <option value="DESC">По убыванию </option>
+                    <?php 
+
+                    $searchNameOptions = [
+                      [
+                        'key' => '',
+                        'value' => 'По умолчанию'
+                    ],
+                    [
+                      'key' => 'ASC',
+                      'value' => 'По возрастанию'
+                    ],
+                    [
+                      'key' => 'DESC',
+                      'value' => 'По убыванию'
+                    ]
+                    ];
+                    selectDefaultValue("sort",$searchNameOptions,"");
+                    ?>
                     </select>
                     <button class = "search" type = "submit">Поиск</button>
                     <a class = "search" href="?">Сбросить</a>
