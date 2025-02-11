@@ -57,7 +57,8 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
         ")->fetchAll();
 
         // Подсчитываем общую сумму заказа
-        $total = array_sum(array_column($allProducts, 'price'));
+
+        $total = $db->query("SELECT SUM(price) FROM products WHERE id IN (" . implode(',',$formData['products']) . ")")->fetchColumn();
 
         echo json_encode($total);
         $orders = [

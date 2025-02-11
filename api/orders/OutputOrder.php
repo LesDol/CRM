@@ -35,7 +35,7 @@ function OutputOrders($clients) {
                             <td><a href='api/orders/DeleteOrders.php?id=$id'><i class='fa fa-trash fa-1x' aria-hidden='true' ></i>
                             </a></td>
                             
-                            <td><i class='fa fa-qrcode fa-1x' aria-hidden='true' onclick=\"MicroModal.show('history-modal')\"></i>
+                            <td><a href='api/orders/generateCheack.php'><i class='fa fa-qrcode fa-1x' aria-hidden='true'></i></a>
                             </td>
                             <td><i class='fa fa-info-circle fa-1x' aria-hidden='true' onclick=\"MicroModal.show('info-modal')\"></i>
                             </td>
