@@ -14,8 +14,10 @@ if(isset($_GET['do']) && $_GET['do'] === 'logout'){
 
 require_once 'api/auth/AuthCheck.php';
 
-AuthCheck('','login.php');
 
+
+
+AuthCheck('','login.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">

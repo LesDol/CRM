@@ -1,0 +1,17 @@
+{
+    "name": "301-9/crm",
+    "autoload": {
+        "psr-4": {
+            "3019\\Crm\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Your Name",
+            "email": "you@example.com"
+        }
+    ],
+    "require": {
+        "dompdf/dompdf": "^3.1"
+    }
+}
