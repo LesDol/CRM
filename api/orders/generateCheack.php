@@ -60,13 +60,10 @@ $data = [
  "total" => $orderResult['total']
 ];
 
-echo json_encode($data);
-
-    // Создание PDF-документа
     $dompdf = new Dompdf();
-    $dompdf->loadHtml('hello'); // Здесь нужно будет добавить HTML-шаблон чека
+    $dompdf->loadHtml('hello worddf'); // Здесь нужно будет добавить HTML-шаблон чека
     $dompdf->setPaper('A4', 'landscape');
     $dompdf->render();
-    $dompdf->stream('order_' . $orderID . '.pdf');
+    $dompdf->stream('order.pdf');
 }
 ?>

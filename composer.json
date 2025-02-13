@@ -1,17 +1,18 @@
 {
-    "name": "301-9/crm",
+    "name": "309-5/crm",
     "autoload": {
         "psr-4": {
-            "3019\\Crm\\": "src/"
+            "3095\\Crm\\": "src/"
         }
     },
     "authors": [
         {
-            "name": "Your Name",
-            "email": "you@example.com"
+            "name": "LesDol",
+            "email": "ferdinandhinick@gmail.com"
         }
     ],
     "require": {
-        "dompdf/dompdf": "^3.1"
+        "dompdf/dompdf": "^3.1",
+        "mpdf/mpdf": "^6.1"
     }
 }

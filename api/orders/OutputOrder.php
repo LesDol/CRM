@@ -17,6 +17,7 @@ function OutputOrders($clients) {
         if(htmlspecialchars($client['status']) === '1'){
             $status = 'Активен';
         }
+        $adminName =  htmlspecialchars($client['admin']); ;
        
 
         // Выводим строку таблицы с данными клиента
@@ -29,6 +30,7 @@ function OutputOrders($clients) {
                             <td>$total</td>
                             <td>$product_names</td>
                             <td>$status</td>
+                            <td>$adminName</td>
                             <td><i class='fa fa-pencil-square-o fa-1x' aria-hidden='true' onclick=\"MicroModal.show('edit-modal')\"></i>
                             </td>
                             
