@@ -60,10 +60,94 @@ $data = [
  "total" => $orderResult['total']
 ];
 
-    $dompdf = new Dompdf();
-    $dompdf->loadHtml('hello worddf'); // Здесь нужно будет добавить HTML-шаблон чека
-    $dompdf->setPaper('A4', 'landscape');
-    $dompdf->render();
-    $dompdf->stream('order.pdf');
+$html = '
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            font-family: "DejaVu Sans", sans-serif;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .info {
+            margin-bottom: 20px;
+        }
+        .info-row {
+            margin: 5px 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .total {
+            text-align: right;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Кассовый чек</h1>
+    </div>
+    
+    <div class="info">
+        <div class="info-row"><strong>Номер заказа:</strong> ' . $data["orderID"] . '</div>
+        <div class="info-row"><strong>Дата:</strong> ' . $data["orderDate"] . '</div>
+        <div class="info-row"><strong>Клиент:</strong> ' . $data["clientName"] . '</div>
+        <div class="info-row"><strong>Обслуживающий персонал:</strong> ' . $data["adminName"] . '</div>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Наименование</th>
+                <th>Цена</th>
+                <th>Количество</th>
+                <th>Сумма</th>
+            </tr>
+        </thead>
+        <tbody>';
+
+foreach ($data["orderItems"] as $item) {
+    $html .= '
+            <tr>
+                <td>' . $item["name"] . '</td>
+                <td>' . number_format($item["price"], 2) . ' ₽</td>
+                <td>' . $item["quantity"] . '</td>
+                <td>' . number_format($item["total"], 2) . ' ₽</td>
+            </tr>';
+}
+
+$html .= '
+        </tbody>
+    </table>
+
+    <div class="total">
+        Итого к оплате: ' . number_format($data["total"], 2) . ' ₽
+    </div>
+</body>
+</html>';
+
+$dompdf = new Dompdf();
+$dompdf->loadHtml($html);
+$dompdf->setPaper('A4', 'portrait');
+$dompdf->render();
+$dompdf->stream('order.pdf');
 }
 ?>
