@@ -6,7 +6,7 @@ function OutputProducts($products) {
         // Извлекаем данные клиента
         $id = htmlspecialchars($product['id']);
         $name = htmlspecialchars($product['name']);
-        $desc = htmlspecialchars($product['desc']);
+        $desc = htmlspecialchars($product['description']);
         $price  = htmlspecialchars($product['price']);
         $stock = htmlspecialchars($product['stock']);
 
@@ -23,7 +23,7 @@ function OutputProducts($products) {
                 <td><a href='api/products/DeleteProducts.php?id=$id'>
                  <i class='fa fa-trash' aria-hidden='true' ></i>
                 </a></td>
-                <td><i class='fa fa-qrcode fa-1x' aria-hidden='true' onclick=\"MicroModal.show('history-modal')\"></i>
+                <td><a href='api/products/generateQR.php?id=$id'><i class='fa fa-qrcode fa-1x' aria-hidden='true' ></i></a>
                 </td>
  
                  
