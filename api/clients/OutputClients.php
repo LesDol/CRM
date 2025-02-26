@@ -20,9 +20,16 @@ function OutputClients($clients) {
                 <td>$phone</td>
                 <td>$birthday</td>
                 <td>$created_at</td>
-                <td><i class='fa fa-history' aria-hidden='true' onclick='MicroModal.show(\"history-modal\")'></i></td>
+                <td>
+                <form class = 'main_form' action = 'api/clients/ClientsHistory.php?id=$id'>
+                <input value='$id' name = 'id' hidden>
+                <input type='date' id = 'from' name = 'from'>
+                <input type='date' id = 'to' name = 'to'>
+                <button type='submit' class = 'historyBitton'>OK</button>
+                </form>
+                </td>
                 <td><i class='fa fa-pencil-square-o' aria-hidden='true' onclick='MicroModal.show(\"edit-modal\")'></i></td>
-                 <td><a href='api/clients/DeleteClients.php?id=$id'>
+                <td><a href='api/clients/DeleteClients.php?id=$id'>
                  <i class='fa fa-trash' aria-hidden='true' ></i>
                 </a>
                  </td>
