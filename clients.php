@@ -100,8 +100,43 @@ AuthCheck('','login.php');
         <section class="clients">
             <div class="container">
                         <h2 class="clients_title">Список клиентов</h2>
-                        <button onclick="MicroModal.show('add-modal')" class="clients_add"><i class="fa fa-plus-square fa-2x" aria-hidden="true"></i>
+                     
                         </button>
+
+
+                        <div class = "pages" >       
+                          <button onclick="MicroModal.show('add-modal')" class="clients_add"><i class="fa fa-plus-square fa-2x" aria-hidden="true"></i>
+                                
+
+                                               
+   
+                        <?php
+                          require_once 'api/db.php';
+                          $totalClientsQuery = $db->query("SELECT COUNT(*) AS total_clients FROM clients");
+                          $totalClients = $totalClientsQuery->fetch(PDO::FETCH_ASSOC)['total_clients'];
+                          $maxClients = 5;
+                          $maxPage = ceil($totalClients / $maxClients);
+                          $currentPage = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+
+                          // Ограничение текущей страницы
+                          if ($currentPage < 1) {
+                              $currentPage = 1;
+                          } elseif ($currentPage > $maxPage) {
+                              $currentPage = $maxPage;
+                          }
+
+                          echo "<a href='?page=" . ($currentPage - 1) . "'>
+                          <i class='fa fa-arrow-left fa-2x' aria-hidden='true'></i>
+                    </a>";
+                          echo '<p>' . $currentPage . '...</p>' . '<p>' . $maxPage . '</p>';
+                          echo "<a href='?page=" . ($currentPage + 1) . "'>
+                        <i class='fa fa-arrow-right fa-2x' aria-hidden='true'></i>
+                  </a>";
+                        ?> 
+
+                        </div>
+
+                  
                    
                         <div class="table-wrap">
                         <table>
