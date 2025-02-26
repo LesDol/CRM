@@ -69,32 +69,44 @@ if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id'])){
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Order History</title>
-    <style>
-        body { font-family: Arial, sans-serif; background-color: #f4f4f4; margin: 20px; }
-        h1 { color: #333; }
-        .order { background: #fff; border: 1px solid #ddd; border-radius: 5px; padding: 15px; margin-bottom: 20px; }
-        .order h2 { margin: 0 0 10px; }
-        .order p { margin: 5px 0; }
-        .items { margin-top: 10px; }
-        .item { background: #f9f9f9; border: 1px solid #ccc; padding: 10px; margin: 5px 0; }
+<style>
+        body {
+            font-family: "DejaVu Sans", sans-serif;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
     </style>
 </head>
 <body>
-    <h1>Client Order History</h1>';
+    <h1><strong>История заказов клиента</strong></h1>';
 
     foreach ($history['orders'] as $order) {
         $html .= '<div class="order">
-            <h2>Order ID: ' . htmlspecialchars($order['id']) . '</h2>
-            <p>Date: ' . htmlspecialchars($order['date']) . '</p>
-            <p>Total: ' . htmlspecialchars($order['total']) . ' rub.</p>
+            <h2><strong>Заказ ID:</strong> ' . htmlspecialchars($order['id']) . '</h2>
+            <p><strong>Дата</strong> : ' . htmlspecialchars($order['date']) . '</p>
+            <p><strong>Итоговая цена</strong>: ' . htmlspecialchars($order['total']) . ' rub.</p>
             <div class="items">
                 <h3>Order Items:</h3>';
 
         foreach ($order['items'] as $item) {
             $html .= '<div class="item">
-                <p>Product ID: ' . htmlspecialchars($item['product_id']) . '</p>
-                <p>Quantity: ' . htmlspecialchars($item['quantity']) . '</p>
-                <p>Price: ' . htmlspecialchars($item['price']) . ' rub.</p>
+                <p><strong>Продукт ID:</strong> ' . htmlspecialchars($item['product_id']) . '</p>
+                <p><strong>Количество</strong>: ' . htmlspecialchars($item['quantity']) . '</p>
+                <p><strong>Цена</strong>: ' . htmlspecialchars($item['price']) . ' rub.</p>
             </div>';
         }
 
@@ -103,17 +115,12 @@ if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id'])){
 
     $html .= '</body></html>';
 
+
     $dompdf = new Dompdf();
-    $options = $dompdf->getOptions();
-    $options->set('isHtml5ParserEnabled', true);
-    $options->set('defaultFont', 'Times New Roman');
-    $dompdf->setOptions($options);
     $dompdf->loadHtml($html);
     $dompdf->setPaper('A4', 'portrait');
     $dompdf->render();
     $dompdf->stream('history.pdf');
 
-
-    echo json_encode($history['orders']);
 }
 ?>
