@@ -101,41 +101,68 @@ AuthCheck('','login.php');
             <div class="container">
                         <h2 class="clients_title">Список клиентов</h2>
                      
-                        </button>
+                       
 
 
-                        <div class = "pages" >       
-                          <button onclick="MicroModal.show('add-modal')" class="clients_add"><i class="fa fa-plus-square fa-2x" aria-hidden="true"></i>
-                                
-
-                                               
    
-                        <?php
-                          require_once 'api/db.php';
-                          $totalClientsQuery = $db->query("SELECT COUNT(*) AS total_clients FROM clients");
-                          $totalClients = $totalClientsQuery->fetch(PDO::FETCH_ASSOC)['total_clients'];
-                          $maxClients = 5;
-                          $maxPage = ceil($totalClients / $maxClients);
-                          $currentPage = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+                          <button onclick="MicroModal.show('add-modal')" class="clients_add"><i class="fa fa-plus-square fa-2x" aria-hidden="true"></i> </button>
+                                
+                          <div style="text-align: center;">
+                <?php 
+                require 'api/DB.php';
+                $currentPage = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+                $maxClients = 5;
+                $_SESSION['maxClients'] = $maxClients;
+                $offset = ($currentPage - 1) * $maxClients;
+                $_SESSION['offset'] = $offset;
 
-                          // Ограничение текущей страницы
-                          if ($currentPage < 1) {
-                              $currentPage = 1;
-                          } elseif ($currentPage > $maxPage) {
-                              $currentPage = $maxPage;
-                          }
+                $search = isset($_GET['search']) ? $_GET['search'] : '';
+                $search_name = isset($_GET['search_name']) ? $_GET['search_name'] : '';
+                $sort = isset($_GET['sort']) ? $_GET['sort'] : '';
 
-                          echo "<a href='?page=" . ($currentPage - 1) . "'>
-                          <i class='fa fa-arrow-left fa-2x' aria-hidden='true'></i>
-                    </a>";
-                          echo '<p>' . $currentPage . '...</p>' . '<p>' . $maxPage . '</p>';
-                          echo "<a href='?page=" . ($currentPage + 1) . "'>
-                        <i class='fa fa-arrow-right fa-2x' aria-hidden='true'></i>
-                  </a>";
-                        ?> 
+                $totalClients =  $db -> query("
+                SELECT COUNT(*) as count FROM clients WHERE LOWER(name) LIKE '%$search%'
+                ")->fetchAll()[0]['count'];
 
-                        </div>
+                $maxPage = ceil($totalClients / $maxClients);
 
+                // Проверка на корректность значения текущей страницы
+                if ($currentPage < 1) {
+                    $currentPage = 1;
+                } elseif ($currentPage > $maxPage) {
+                    $currentPage = $maxPage;
+                }
+
+                $prev = $currentPage - 1;
+                if ($currentPage > 1) {
+                    echo "  <button><a href='?page=$prev&search=".urlencode($search)."&search_name=$search_name&sort=$sort'><i class='fa fa-chevron-left' aria-hidden='true'></i></a></button>
+                            ";
+                } else {
+                    echo "  <button style='color: gray; cursor: not-allowed;' disabled><i class='fa fa-chevron-left' aria-hidden='true'></i></button>
+                            ";
+                }
+                $next = $currentPage + 1;         
+
+                //echo "  <p>$currentPage / $maxPage</p> ";
+                for($i = 1; $i <= $maxPage ;$i++){
+                  if($currentPage == $i){
+                    echo "<a href='?page=$i&search=".urlencode($search)."&search_name=$search_name&sort=$sort' style='color: green;'>$i</a>";
+                  }else{
+                    echo "<a href='?page=$i&search=".urlencode($search)."&search_name=$search_name&sort=$sort'style='color: gray; '>$i</a>";
+                  }
+                  
+                }    
+                
+                if ($currentPage < $maxPage) {
+                    echo "  <button><a href='?page=$next&search=".urlencode($search)."&search_name=$search_name&sort=$sort'><i class='fa fa-chevron-right' aria-hidden='true'></i></a></button>
+                            ";
+                } else {
+                    echo "  <button style='color: gray; cursor: not-allowed;' disabled><i class='fa fa-chevron-right' aria-hidden='true'></i></button>
+                            ";
+                }
+      
+                ?>
+            </div>
                   
                    
                         <div class="table-wrap">

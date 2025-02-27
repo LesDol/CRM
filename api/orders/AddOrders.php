@@ -59,10 +59,16 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
         // Подсчитываем общую сумму заказа
 
         $total = $db->query("SELECT SUM(price) FROM products WHERE id IN (" . implode(',',$formData['products']) . ")")->fetchColumn();
-        $adminID = $db->query("SELECT id FROM users WHERE token = '$token' ")->fetchAll(PDO::FETCH_ASSOC)[0]['id'];
+        
+        // Get admin ID from session instead of undefined token
+        $adminID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
+        if (!$adminID) {
+            throw new Exception("Admin ID not found in session");
+        }
+        
         $orders = [
             'id' => time(),
-            'client_id' => $clienID, // Use the verified $clienID
+            'client_id' => $clienID,
             'total' => $total,
             'status' => '1',
             'admin' => $adminID
@@ -85,7 +91,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
         // Добавляем заказ в базу данных
         $stmt = $db->prepare("
-            INSERT INTO orders (id,client_id, total,status, admin) 
+            INSERT INTO orders (id,client_id, total,status,admin) 
             VALUES (:id,:client_id, :total, :status, :admin)
         ");
 

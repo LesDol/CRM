@@ -102,7 +102,7 @@ AuthCheck('','login.php');
                     </select>
                     <button class = "search" type = "submit">Поиск</button>
                     <a class = "search" href="?">Сбросить</a>
-                    <input type="checkbox" name="show_active" id="show_active" <?php echo isset($_GET['show_active']) ? 'checked' : ''; ?>>
+                    <input type="checkbox" name="show_active" id="show_active" <?php echo isset($_GET['show_active']) ? 'checked' : '';?>>
                     <label for="show_active">Показать не активные заказы</label>
                 </form>
             </div>
@@ -112,6 +112,64 @@ AuthCheck('','login.php');
                         <h2 class="clients_title">Список заказов</h2>
                         <button onclick="MicroModal.show('add-modal')" class="clients_add"><i class="fa fa-plus-square fa-2x" aria-hidden="true"></i>
                         </button>
+
+                        <?php 
+                require 'api/DB.php';
+                $checkbox = isset($_GET['show_active']) ? 'on' : '';
+                $currentPage = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+                $maxOrders = 5;
+                $_SESSION['maxOrders'] = $maxOrders;
+                $offset = ($currentPage - 1) * $maxOrders;
+                $_SESSION['offset'] = $offset;
+
+                $search = isset($_GET['search']) ? $_GET['search'] : '';
+                $search_name = isset($_GET['search_name']) ? $_GET['search_name'] : '';
+                $sort = isset($_GET['sort']) ? $_GET['sort'] : '';
+
+                $showActive = isset($_GET['show_active']) ? "": "WHERE orders.status = '1'" ;
+                $status = isset($_GET['show_active']) ? "&show_active=on": "" ;
+
+                $totalOrders =  $db -> query("
+                SELECT COUNT(*) as count FROM orders $showActive
+                ")->fetchAll()[0]['count'];
+                $maxPage = ceil($totalOrders / $maxOrders);
+                // Проверка на корректность значения текущей страницы
+                if ($currentPage < 1) {
+                    $currentPage = 1;
+                } elseif ($currentPage > $maxPage) {
+                    $currentPage = $maxPage;
+                }
+
+                $prev = $currentPage - 1;
+                if ($currentPage > 1) {
+                    echo "  <button><a href='?page=$prev&search=".urlencode($search)."&search_name=$search_name&sort=$sort$status'><i class='fa fa-chevron-left' aria-hidden='true'></i></a></button>
+                            ";
+                } else {
+                    echo "  <button style='color: gray; cursor: not-allowed;' disabled><i class='fa fa-chevron-left' aria-hidden='true'></i></button>
+                            ";
+                }
+                $next = $currentPage + 1;         
+
+                //echo "  <p>$currentPage / $maxPage</p> ";
+                for($i = 1; $i <= $maxPage ;$i++){
+                  if($currentPage == $i){
+                    echo "<a href='?page=$i&search=".urlencode($search)."&search_name=$search_name&sort=$sort$status' style='color: green;'>$i</a>";
+                  }else{
+                    echo "<a href='?page=$i&search=".urlencode($search)."&search_name=$search_name&sort=$sort$status'style='color: gray; '>$i</a>";
+                  }
+                  
+                }    
+                
+                if ($currentPage < $maxPage) {
+                    echo "  <button><a href='?page=$next&search=".urlencode($search)."&search_name=$search_name&sort=$sort$status'><i class='fa fa-chevron-right' aria-hidden='true'></i></a></button>
+                            ";
+                } else {
+                    echo "  <button style='color: gray; cursor: not-allowed;' disabled><i class='fa fa-chevron-right' aria-hidden='true'></i></button>
+                            ";
+                }
+      
+                ?>
+            </div>
                    
                         <div class="table-wrap">
                         <table>

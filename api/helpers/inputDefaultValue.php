@@ -8,8 +8,6 @@ function inputDefaultValue($field,$defaultValue){
     }
 };
 function selectDefaultValue($field,$options,$defaultValue){
-
-
     foreach($options as $key => $option){
         $key = $option['key'];
         $value = $option['value'];

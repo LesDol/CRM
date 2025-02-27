@@ -8,8 +8,15 @@ function OrdersSearch($params, $db){
 
         $search = trim(strtolower($search));
         
-        $orderBy = "ORDER BY $search_name $sort";
-        
+        //$orderBy = "ORDER BY $search_name $sort";
+
+        $maxOrders = isset($_SESSION['maxOrders']) ? $_SESSION['maxOrders'] : 5;
+        $offset = isset($_SESSION['offset']) ? $_SESSION['offset'] : 0;
+        $offset = max(0, $offset);
+        if ($sort) {
+                $sort = "ORDER BY $search_name $sort";
+            } 
+
         
         $order = $db->query(
                 "SELECT orders.id, clients.name, orders.order_date, orders.total, orders.status, users.name as 'admin',
@@ -21,9 +28,10 @@ function OrdersSearch($params, $db){
                     JOIN users ON orders.admin = users.id 
                     WHERE (LOWER(clients.name) LIKE '%$search%' OR LOWER(products.name) LIKE '%$search%') 
                     $showActive
-                    GROUP BY orders.id, clients.name, orders.order_date, orders.total $orderBy") ->fetchAll();
+                    GROUP BY orders.id, clients.name, orders.order_date, orders.total $sort LIMIT $maxOrders OFFSET $offset") ->fetchAll();
 
         return $order;
+
 
 
 }
