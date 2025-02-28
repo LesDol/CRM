@@ -1,7 +1,16 @@
 <?php
 
 
-function OutputClients($clients) {
+function OutputClients($clients) {        
+    function convertParams($params) {
+            $outputParams = [];
+        
+            foreach ($params as $key => $value) {
+                $outputParams[] = $key . '=' . $value;
+            }
+        
+            return implode('&', $outputParams);
+        }
     foreach ($clients as $client) {
         // Извлекаем данные клиента
         $id = htmlspecialchars($client['id']);
@@ -11,12 +20,19 @@ function OutputClients($clients) {
         $birthday = htmlspecialchars($client['birthday']);
         $created_at = htmlspecialchars($client['created_at']);
 
+
+
+        $copyParams = $_GET;
+        $copyParams['send-email'] = $email;
+        $queryParams = convertParams($copyParams);
+
+
         // Выводим строку таблицы с данными клиента
         echo "
             <tr>
                 <td>$id</td>
                 <td>$name</td>
-                <td>$email</td>
+                <td><a href='?$queryParams'>$email</a></td>
                 <td>$phone</td>
                 <td>$birthday</td>
                 <td>$created_at</td>

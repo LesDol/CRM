@@ -1,142 +1,86 @@
-<?php
-session_start();
-require_once '../db.php';
-
-if ($_SERVER['REQUEST_METHOD'] === "POST") {
+<?php session_start();
+require_once '../DB.php';
+if ($_SERVER['REQUEST_METHOD']==='POST'){
     $formData = $_POST;
 
-    $fields = ['client', 'products'];
+    $fields = ['client','products'];
     $errors = [];
-    $_SESSION['orders_errors'] = '';
 
-    if ($formData['client'] === 'new') {
-        $fields[] = 'email';
-    }
+    
+    $_SESSION['orders-errors']='';
 
-    foreach ($fields as $field) {
-        if (!isset($_POST[$field]) || empty($_POST[$field])) {
-            $errors[$field][] = 'Field is required';
+    foreach($fields as $key => $field){
+        if(!isset($_POST[$field]) || empty($_POST[$field])){
+            $errors[$field][]= 'Field is required';
         }
     }
 
-    // Start a transaction
-    $db->beginTransaction();
-
-    try {
-        $clienID = $formData['client'] === 'new' ? time() : $formData['client'];
-
-        if ($formData['client'] === 'new') {
-            // Check if email is provided
-            $email = isset($formData['email']) ? $formData['email'] : '';
-
-            $stmt = $db->prepare("
-                insert into clients(id,name,email,phone) value(?,?,?,?)
-            ");
-            $stmt->execute([
-                $clienID,
-                'USER#' . $clienID,
-                $email,
-                '0 (000)000 00 00',
-            ]);
-        }  // End of new client creation
-
-        // ***CRITICAL: Verify client ID exists***
-        $stmt = $db->prepare("SELECT id FROM clients WHERE id = ?");
-        $stmt->execute([$clienID]);
-        $existingClient = $stmt->fetch();
-
-        if (!$existingClient) {
-            throw new Exception("Client ID {$clienID} does not exist.");
+    if (!empty($errors)){
+        $errorMessages = '<ul>';
+        foreach ($errors as $key => $error) {
+            $to_string = implode(',', $error);
+            $errorMessages = $errorMessages . "<li>$key : $to_string </li>";
         }
-
-        $productIds = $formData['products'];
-        $allProducts = $db->query("
-            SELECT id, name, price, stock 
-            FROM products
-            WHERE id IN (" . implode(',', $productIds) . ")
-        ")->fetchAll();
-
-        // Подсчитываем общую сумму заказа
-
-        $total = $db->query("SELECT SUM(price) FROM products WHERE id IN (" . implode(',',$formData['products']) . ")")->fetchColumn();
-        
-        // Get admin ID from session instead of undefined token
-        $adminID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
-        if (!$adminID) {
-            throw new Exception("Admin ID not found in session");
-        }
-        
-        $orders = [
-            'id' => time(),
-            'client_id' => $clienID,
-            'total' => $total,
-            'status' => '1',
-            'admin' => $adminID
-        ];
-
-        if (!empty($errors)) {
-            ob_start();
-
-            echo '<ul class="error-list">';
-            foreach ($errors as $field => $messages) {
-                foreach ($messages as $message) {
-                    echo '<li><p style="color: white;">' . htmlspecialchars($field) . ' : ' . htmlspecialchars($message) . '</p></li>';
-                }
-            }
-            echo '</ul>';
-            $_SESSION['orders_errors'] = ob_get_clean();
-            header("Location: ../../orders.php");
-            exit;
-        }
-
-        // Добавляем заказ в базу данных
-        $stmt = $db->prepare("
-            INSERT INTO orders (id,client_id, total,status,admin) 
-            VALUES (:id,:client_id, :total, :status, :admin)
-        ");
-
-        $stmt->execute($orders);
-
-        // Добавляем элементы заказа в таблицу order_items
-        $order_id = $orders['id'];
-        $stmt_items = $db->prepare("
-            INSERT INTO order_items (order_id, product_id, quantity, price) 
-            VALUES (:order_id, :product_id, :quantity, :price)
-        ");
-
-        foreach ($productIds as $product_id) {
-
-            $product = array_filter($allProducts, function ($p) use ($product_id) {
-                return $p['id'] == $product_id;
-            });
-            $product = reset($product);
-            $item_data = [
-                'order_id' => $order_id,
-                'product_id' => $product_id,
-                'quantity' => 1,
-                'price' => $product['price']
-            ];
-
-            $stmt_items->execute($item_data);
-        }
-
-        // Commit the transaction
-        $db->commit();
-
-        header("Location: ../../orders.php");
-        exit;
-    } catch (Exception $e) {
-        // Rollback the transaction on error
-        $db->rollBack();
-        echo "Error: " . $e->getMessage();  // For debugging.  Don't display in production!
-        // Consider logging the error and redirecting to an error page.
-        $_SESSION['orders_errors'] = '<ul class="error-list"><li><p style="color: white;">' . htmlspecialchars($e->getMessage()) . '</p></li></ul>';
-        header("Location: ../../orders.php");
+        $errorMessages = $errorMessages . '</ul>';
+        $_SESSION['orders-errors'] = $errorMessages;
+        header('Location: ../../orders.php');
         exit;
     }
-} else {
-    echo json_encode([
-        "error" => 'Неверный запрос'
+
+    $total = $db->query("SELECT SUM(price) FROM products 
+    WHERE id IN (" . implode(',', $formData['products']) . ")")->fetchColumn();
+    $token = $_SESSION['token'];
+    $adminID = $db->query("SELECT id FROM users WHERE token = '$token'")->fetchAll(PDO::FETCH_ASSOC)[0]['id'];
+    $clientID = $formData['client'] === 'new' ? 
+    time() :
+    $formData['client'];
+
+    if ($formData['client'] === 'new'){
+        //добавить запись клиента в бд id=$clientID, email=$formData['email'], created_at само подставится а остальные поля будут пустыми
+        $db->prepare(
+            "INSERT INTO `clients` (`id`, `name`, `email`, `phone`) VALUES (?, ?, ?, ?)"
+        )->execute([
+            $clientID,
+            'Новый клиент',
+            $formData['email'],
+            "0(000)000-00-00"
+        ]);
+    }
+
+    $orders = [
+        'id' => time(),
+        'client_id' => $clientID,
+        'total' => $total,
+        'admin' => $adminID
+    ];
+
+
+    $db->prepare(
+        "INSERT INTO `orders` (`id`, `client_id`, `total`, `admin`) VALUES (?, ?, ?, ?)"
+    )->execute([
+        $orders['id'],
+        $orders['client_id'], 
+        $orders['total'],
+        $orders['admin']
     ]);
+    // записать элементы заказа в orders_items order_id, product_id, quantity=1, price=цена продукта
+    foreach ($formData['products'] as $key => $product) {
+        $db->prepare(
+            "INSERT INTO `order_items` (`order_id`, `product_id`, `quantity`, `price`) VALUES (?, ?, ?, ?)"
+        )->execute([
+            $orders['id'],
+            $product,
+            1,
+            $db->query("SELECT price FROM products WHERE id = $product")->fetchColumn(),
+        ]);
+    }
+
+    header('Location: ../../orders.php');
+
+}else{
+    echo json_encode(
+        ["error"=> 'Неверный запрос']
+    );
 }
+
 ?>

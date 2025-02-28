@@ -109,6 +109,13 @@ AuthCheck('','login.php');
                                 
                           <div style="text-align: center;">
                 <?php 
+
+
+                    if(isset($_GET['send-email'])){
+                    
+                    }
+
+
                 require 'api/DB.php';
                 $currentPage = isset($_GET['page']) ? (int)$_GET['page'] : 1;
                 $maxClients = 5;
@@ -201,6 +208,34 @@ AuthCheck('','login.php');
             </div>
         </section>
     </main>
+
+    
+
+
+    <div class="modal micromodal-slide     
+<?php
+    if(isset($_GET['send-email']) && !empty($_GET['send-email'])){
+      echo "open";
+    }
+    ?>" id="send-email-modal" aria-hidden="true">
+        <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+          <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="modal-1-title">
+            <header class="modal__header">
+              <h2 class="modal__title" id="modal-1-title">
+              Почта клиента
+              </h2>
+              <button class="modal__close" aria-label="Close modal" data-micromodal-close></button>
+            </header>
+            <main class="modal__content" id="modal-1-content">
+              <?php
+              echo  "<p style='color: white;'>" . $_GET['send-email']. "</p>";
+              ?>
+                
+            </main>
+          </div>
+        </div>
+      </div>
+
 
 
 
@@ -323,40 +358,19 @@ AuthCheck('','login.php');
             </div>
           </div>
 
-    <div class="modal micromodal-slide" id="history-modal" aria-hidden="true">
+    <div class="modal micromodal-slide" id="email-modal" aria-hidden="true">
             <div class="modal__overlay" tabindex="-1" data-micromodal-close>
               <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="modal-1-title">
                 <header class="modal__header">
                   <h2 class="modal__title" id="modal-1-title">
-                    История заказов
+                    EMAIL
                   </h2>
-                  <small>Фамилия Имя Отчество</small>
+
                   <button class="modal__close" aria-label="Close modal" data-micromodal-close></button>
                 </header>
                 <main class="modal__content" id="modal-1-content">
                     <form>
-                        <div class="order">
-                                <div class="order_info">
-                                    <h3 class="order_number">Заказ №1</h3>
-                                    <time class="order_date">Дата оформления :<b> 2025-01-13 09:25:03</b></time>
-                                    <p class="order_total">Общая сумма : <b>300.00р</b></p>
-                                </div>
-                                
-                                    <table class="order_items">
-                                        <tr>
-                                            <th>ИД</th>
-                                            <th>Название товара</th>
-                                            <th>Количество</th>
-                                            <th>Цена</th>
-                                        </tr>
-                                        <tr>
-                                            <td>13</td>
-                                            <td>Футболка</td>
-                                            <td>10</td>
-                                            <td>10000</td>
-                                        </tr>
-                                    </table>                              
-                        </div>
+  
                     </form>
                 </main>
               </div>
