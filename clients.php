@@ -231,15 +231,15 @@ AuthCheck('','login.php');
                 <form method = 'POST' action='api/clients/SendEmail.php?email=$email'>
                 <div class='form-group'>
                   <label for='header'>Обращение</label>
-                  <input type='text'  name = 'header'>
+                  <input type='text'  name = 'header' id='header'>
                 </div>
                 <div class='form-group'>
                   <label for='main'>Сообщение</label>
-                  <textarea name='main' id=''></textarea>
+                  <textarea name='main' id='main'></textarea>
                 </div>
                 <div class='form-group'>
                   <label for='footer'>Футер</label>
-                  <input type='text' name = 'footer'>
+                  <input type='text' name = 'footer' id='footer'>
                 </div>
                 <div class='button-group'>
                   <button type='submit' class='create'>Отправить</button>
