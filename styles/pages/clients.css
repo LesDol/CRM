@@ -138,6 +138,21 @@ tr:hover {
         .form-group input::placeholder {
             color: #bbb; /* Серый цвет для плейсхолдера */
         }
+        .form-group textarea{
+            background-color: #333;
+            
+            color: #fff;
+            
+            border: 1px solid #555;
+            border-radius: 4px;
+            outline: none;
+           
+            caret-color: #fff;
+        }
+        .form-group textarea:focus {
+            /* Цвет границы при фокусе */
+            border-color: #777;
+          }
         .button-group {
             display: flex;
             justify-content: space-between;

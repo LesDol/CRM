@@ -220,18 +220,38 @@ AuthCheck('','login.php');
     ?>" id="send-email-modal" aria-hidden="true">
         <div class="modal__overlay" tabindex="-1" data-micromodal-close>
           <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="modal-1-title">
-            <header class="modal__header">
+           <button class="modal__close" aria-label="Close modal" data-micromodal-close></button>
+             <main class="modal__content" id="modal-1-content"> 
               <h2 class="modal__title" id="modal-1-title">
-              Почта клиента
-              </h2>
-              <button class="modal__close" aria-label="Close modal" data-micromodal-close></button>
-            </header>
-            <main class="modal__content" id="modal-1-content">
+              Рассылка   
+              </h2>   
               <?php
-              echo  "<p style='color: white;'>" . $_GET['send-email']. "</p>";
+              $email = $_GET['send-email'];
+              echo  "<p style='color: white;'>" . $_GET['send-email']. "</p>
+                <form method = 'POST' action='api/clients/SendEmail.php?email=$email'>
+                <div class='form-group'>
+                  <label for='header'>Обращение</label>
+                  <input type='text'  name = 'header'>
+                </div>
+                <div class='form-group'>
+                  <label for='main'>Сообщение</label>
+                  <textarea name='main' id=''></textarea>
+                </div>
+                <div class='form-group'>
+                  <label for='footer'>Футер</label>
+                  <input type='text' name = 'footer'>
+                </div>
+                <div class='button-group'>
+                  <button type='submit' class='create'>Отправить</button>
+                </div>
+              </form>
+              
+              ";
               ?>
-                
+
             </main>
+
+
           </div>
         </div>
       </div>
