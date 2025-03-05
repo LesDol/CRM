@@ -1,41 +1,38 @@
 <?php
 
+require_once 'api/helpers/convertdate.php';
 
-function OutputClients($clients) {        
-    function convertParams($params) {
-            $outputParams = [];
-        
-            foreach ($params as $key => $value) {
-                $outputParams[] = $key . '=' . $value;
-            }
-        
-            return implode('&', $outputParams);
-        }
-    foreach ($clients as $client) {
-        // Извлекаем данные клиента
-        $id = htmlspecialchars($client['id']);
-        $name = htmlspecialchars($client['name']);
-        $email = htmlspecialchars($client['email']);
-        $phone = htmlspecialchars($client['phone']);
-        $birthday = htmlspecialchars($client['birthday']);
-        $created_at = htmlspecialchars($client['created_at']);
+function OutputClients($clients){
+    function convertParams($arr){
+        $params = [];
+        foreach ($arr as $key => $value) {
+            $params[] = "$key=$value";
+    }
+        return implode('&', $params);
+    }
+    foreach($clients as $client){
+        $id = $client['id'];
+        $clients_name = $client['name'];
+        $email = $client['email'];
+        $phone = $client['phone'];
+        $birthday = $client['birthday'];
+        $created_at = $client['created_at'];
 
+        $birthday = formatOrderDate($birthday);
+        $created_at = formatOrderDate($created_at);
 
+               
+        // $copyParams = $_GET;
+        // $copyParams['send-email'] = $email;
+        // $queryParams = convertParams($copyParams);
 
-        $copyParams = $_GET;
-        $copyParams['send-email'] = $email;
-        $queryParams = convertParams($copyParams);
-
-
-        // Выводим строку таблицы с данными клиента
-        echo "
-            <tr>
-                <td>$id</td>
-                <td>$name</td>
-                <td><a href='?$queryParams'>$email</a></td>
-                <td>$phone</td>
-                <td>$birthday</td>
-                <td>$created_at</td>
+        echo "<tr>
+        <td>$id</td>
+        <td>$clients_name</td>
+        <td><a href='?send-email=$email'>$email</a></td>
+        <td>$phone</td>
+        <td>$birthday</td>
+        <td>$created_at</td>
                 <td>
                 <form class = 'main_form' action = 'api/clients/ClientsHistory.php?id=$id'>
                 <input value='$id' name = 'id' hidden>
@@ -44,7 +41,7 @@ function OutputClients($clients) {
                 <button type='submit' class = 'historyBitton'>OK</button>
                 </form>
                 </td>
-                <td><i class='fa fa-pencil-square-o' aria-hidden='true' onclick='MicroModal.show(\"edit-modal\")'></i></td>
+                <td><a href='?edit-user=$id'><i class='fa fa-pencil-square-o' aria-hidden='true'></i></a></td>
                 <td><a href='api/clients/DeleteClients.php?id=$id'>
                  <i class='fa fa-trash' aria-hidden='true' ></i>
                 </a>
