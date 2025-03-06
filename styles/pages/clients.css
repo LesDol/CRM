@@ -65,6 +65,15 @@ main {
     background-color: #2a2a2a; /* Темный фон для полей ввода и селектов */
     color: #e0e0e0; /* Светлый цвет текста в полях ввода и селектах */
 }
+.form-group select {
+    width: calc(100% - 20px); /* Ширина с учетом отступов */
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 4px;
+    border: 1px solid #333333; /* Темная рамка для полей ввода и селектов */
+    background-color: #2a2a2a; /* Темный фон для полей ввода и селектов */
+    color: #e0e0e0; /* Светлый цвет текста в полях ввода и селектах */
+}
 .filters input[type="text"]::placeholder,
 .filters select option {
     color: #aaaaaa; /* Цвет плейсхолдера и опций в селекте (серый) */

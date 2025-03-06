@@ -401,6 +401,65 @@ AuthCheck('','login.php');
               </div>
             </div>
           </div>
+
+
+
+          <div class="modal micromodal-slide <?php
+    if (isset($_GET['edit-orders']) && !empty($_GET['edit-orders'])) {
+        echo 'open';
+    }
+    ?>" id="edit-user-modal" aria-hidden="true">
+        <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+            <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="modal-1-title">
+                <header class="modal__header">
+                    <h2 class="modal__title" id="modal-1-title">
+                        Редактировать
+                    </h2>
+                    <button class="modal__close" aria-label="Close modal" data-micromodal-close></button>
+                </header>
+                    <?php
+                    $IdOrders = $_GET['edit-orders'];
+                              $order = $db->query(
+                                  "SELECT * FROM orders   WHERE id = $IdOrders 
+                                  ") ->fetchAll(); 
+                    $status;
+
+                foreach($order as $order){
+                    $status = $order['status'];
+                }
+
+
+              
+                    if (isset($_GET['edit-orders']) && !empty($_GET['edit-orders'])) {
+                        echo "<form method='POST' action='api/orders/EditOrders.php?id=$IdOrders'>
+        <div class='filters'>   
+    <div class='form-group'>   
+         <div class='form-group'>
+         <label for='status'>Изменить статус заказа</label>
+         <select name='status' id='status'>
+                        <option value = '0' " . ($status == 0 ? 'selected' : '') . ">Не активен</option>
+                        <option value = '1' " . ($status == 1 ? 'selected' : '') . ">Активен</option>                           
+         </select>
+        </div>
+        <div class='button-group'>
+        <button type='submit' class='create'>Изменить</button>
+        <button type='button' class='cancel' data-micromodal-close>Отмена</button>
+    </div>
+    </div>
+    </div>
+ 
+</form>
+";
+}
+                    ?>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
        
       <script defer src="https://unpkg.com/micromodal/dist/micromodal.min.js"></script>
       <script defer src="scripts/initClientsModal.js"></script> 

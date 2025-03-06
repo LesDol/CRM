@@ -307,6 +307,70 @@ require_once 'api/helpers/inputDefaultValue.php';
         </div>
       </div>
 
+      <div class="modal micromodal-slide <?php
+    if (isset($_GET['edit-products']) && !empty($_GET['edit-products'])) {
+        echo 'open';
+    }
+    ?>" id="edit-user-modal" aria-hidden="true">
+        <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+            <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="modal-1-title">
+                <header class="modal__header">
+                    <h2 class="modal__title" id="modal-1-title">
+                        Редактировать
+                    </h2>
+                    <button class="modal__close" aria-label="Close modal" data-micromodal-close></button>
+                </header>
+                    <?php
+                    $IdProducts = $_GET['edit-products'];
+                              $clients = $db->query(
+                                  "SELECT *  FROM products   WHERE id = $IdProducts 
+                                  ") ->fetchAll(); 
+                    $name;
+                    $description;
+                    $price;
+                    $stock;
+                foreach($clients as $client){
+                    $name = $client['name'];
+                    $description = $client['description'];
+                    $price = $client['price'];
+                    $stock = $client['stock'];
+                }
+                    if (isset($_GET['edit-products']) && !empty($_GET['edit-products'])) {
+                        echo "<form method='POST' action='api/products/EditProducts.php?id=$IdProducts'>
+    <div class='form-group'>
+    <div class='form-group'>
+        <label for='name'>Имя пользователя</label>
+        <input type='text' id='name' name='name' value = '$name' required>
+    </div>
+    
+    <div class='form-group'>
+        <label for='description'>Описание</label>
+        <input type='text' id='description' name='description' value = '$description' required>
+    </div>
+    
+    <div class='form-group'>
+        <label for='price'>Цена</label>
+        <input type='text' id='price' name='price' value = '$price' required>
+    </div>
+
+        <div class='form-group'>
+        <label for='stock'>Количество</label>
+        <input type='text' id='stock' name='stock' value = '$stock' required>
+    </div>
+    
+    <div class='button-group'>
+        <button type='submit' class='create'>Изменить</button>
+        <button type='button' class='cancel' data-micromodal-close>Отмена</button>
+    </div>
+</form>
+
+";
+                    }
+                    ?>
+            </div>
+        </div>
+    </div>
+
 
 
 

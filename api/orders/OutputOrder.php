@@ -31,8 +31,7 @@ function OutputOrders($clients) {
                             <td>$product_names</td>
                             <td>$status</td>
                             <td>$adminName</td>
-                            <td><i class='fa fa-pencil-square-o fa-1x' aria-hidden='true' onclick=\"MicroModal.show('edit-modal')\"></i>
-                            </td>
+                            <td><a href='?edit-orders=$id'><i class='fa fa-pencil-square-o' aria-hidden='true'></i></a></td>
                             
                             <td><a href='api/orders/DeleteOrders.php?id=$id'><i class='fa fa-trash fa-1x' aria-hidden='true' ></i>
                             </a></td>

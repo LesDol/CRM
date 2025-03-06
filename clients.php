@@ -291,7 +291,7 @@ AuthCheck('','login.php');
                     $birthday = $client['birthday'];
                 }
                     if (isset($_GET['edit-user']) && !empty($_GET['edit-user'])) {
-                        echo "<form method='POST' action='api/clients/SendEmail.php?email=$email'>
+                        echo "<form method='POST' action='api/clients/EditClients.php?id=$editUser'>
     
     <div class='form-group'>
         <label for='name'>Имя пользователя</label>
@@ -306,11 +306,6 @@ AuthCheck('','login.php');
     <div class='form-group'>
         <label for='phone'>Телефон</label>
         <input type='text' id='phone' name='phone' value = '$phone' required>
-    </div>
-    
-    <div class='form-group'>
-        <label for='date'>День рождения</label>
-        <input type='text' id='date' name='date' value = '$birthday' required>
     </div>
     
     <div class='button-group'>
