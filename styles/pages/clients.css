@@ -348,3 +348,70 @@ tr:hover {
     flex-wrap: nowrap; /* Запрещаем перенос элементов на новую строку */
     overflow-x: auto; /* Добавляем горизонтальную прокрутку, если элементы не помещаются */
 }
+.support-btn{
+    position: fixed;
+    bottom: 16px;
+    right: 16px;
+    color: #218838; /* Цвет иконок (зеленый) */
+    cursor: pointer; /* Указатель при наведении на иконки */
+}
+.support-create-tickets {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #444;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.support-create-tickets form {
+    display: flex;
+    flex-direction: column;
+}
+
+.support-create-tickets label {
+    margin-bottom: 5px;
+}
+
+.support-create-tickets select, .support-create-tickets textarea, .support-create-tickets input[type="file"] {
+    margin-bottom: 15px;
+    padding: 5px;
+    border: none;
+    border-radius: 5px;
+    background-color: #555;
+    color: #fff;
+}
+
+.support-create-tickets button[type="submit"] {
+    padding: 10px;
+    background-color: #18934b; /* Зеленый цвет */
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.support-create-tickets button[type="submit"]:hover {
+    background-color: #16ac48; /* Темнее зеленый при наведении */
+}
+
+.support-create-tickets .close-create-ticket {
+    padding: 10px;
+    background-color: #ad2d1f; /* Красный цвет */
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px; /* Отступ сверху */
+}
+
+.support-create-tickets .close-create-ticket:hover {
+    background-color: #b92c1c; /* Темнее красный при наведении */
+}
+.pages {
+    display: flex; 
+    flex-wrap: nowrap;
+    overflow-x: auto; 
+}

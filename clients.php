@@ -174,8 +174,33 @@ AuthCheck('','login.php');
         </section>
     </main>
 
+    <button class='support-btn'><i class="fa fa-question-circle fa-3x" aria-hidden="true"></i></button>
 
 
+    <div class="support-create-tickets">
+    <form action="api/ticket/CreateTicket.php" method='POST'>
+        <label for="type">Тип обращения</label>
+        <select name="type" id="type">
+            <option value="tech">Техническая неполадка</option>
+            <option value="crm">Проблема с CRM</option>
+        </select>
+        <label for="message">Текст сообщения</label>
+        <textarea name="message" id="message"></textarea>
+        <input type="file" name='file' id="file">
+        <button type="submit">Создать тикет</button>
+        <button type="button" class="close-create-ticket">Отмена</button>
+    </form>
+</div>
+
+<script>
+    document.querySelector('.support-btn').addEventListener('click', function() {
+        document.querySelector('.support-create-tickets').style.display = 'block';
+    });
+
+    document.querySelector('.close-create-ticket').addEventListener('click', function() {
+        document.querySelector('.support-create-tickets').style.display = 'none';
+    });
+</script>
 <div class="modal micromodal-slide     
 <?php
     if(isset($_SESSION['clients_errors']) && !empty($_SESSION['clients_errors'])){
@@ -203,7 +228,49 @@ AuthCheck('','login.php');
       </div>
 
     
+      <div class="modal micromodal-slide     
+<?php
+    if(isset($_GET['send-email']) && !empty($_GET['send-email'])){
+      echo "open";
+    }
+    ?>" id="send-email-modal" aria-hidden="true">
+        <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+          <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="modal-1-title">
+           <button class="modal__close" aria-label="Close modal" data-micromodal-close></button>
+             <main class="modal__content" id="modal-1-content"> 
+              <h2 class="modal__title" id="modal-1-title">
+              Рассылка   
+              </h2>   
+              <?php
+              $email = $_GET['send-email'];
+              echo  "<p style='color: white;'>" . $_GET['send-email']. "</p>
+                <form method = 'POST' action='api/clients/SendEmail.php?email=$email'>
+                <div class='form-group'>
+                  <label for='header'>Обращение</label>
+                  <input type='text'  name = 'header' id='header'>
+                </div>
+                <div class='form-group'>
+                  <label for='main'>Сообщение</label>
+                  <textarea name='main' id='main'></textarea>
+                </div>
+                <div class='form-group'>
+                  <label for='footer'>Футер</label>
+                  <input type='text' name = 'footer' id='footer'>
+                </div>
+                <div class='button-group'>
+                  <button type='submit' class='create'>Отправить</button>
+                </div>
+              </form>
+              
+              ";
+              ?>
 
+            </main>
+
+
+          </div>
+        </div>
+      </div>
     
     <div class="modal micromodal-slide" id="add-modal" aria-hidden="true">
         <div class="modal__overlay" tabindex="-1" data-micromodal-close>
@@ -381,7 +448,6 @@ AuthCheck('','login.php');
           </div>
         </div>
       </div>
-       
 
     <script defer src="https://unpkg.com/micromodal/dist/micromodal.min.js"></script>
     <script defer src="scripts/initClientsModal.js"></script>
