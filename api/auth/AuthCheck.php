@@ -1,7 +1,8 @@
 <?php
+require_once __DIR__ . '/../db.php';
+
 function AuthCheck($successPath = '', $errorPath = '') {
    
-    require_once 'api/db.php';
     require_once 'LogoutUser.php';
    // $_SESSION['token']='';
 
@@ -24,12 +25,27 @@ function AuthCheck($successPath = '', $errorPath = '') {
        
         return;
     }
+    global $db;
     $token=$_SESSION['token'];
     $adminID= $db->query(
         "SELECT id FROM users WHERE token='$token'"
     )->fetchAll();
 
     //echo json_encode ($adminID);
+
+    if ($db === null) {
+        error_log("Ошибка: объект базы данных не инициализирован.");
+        return false;
+    }
+
+    try {
+        // Пример использования $db
+        $stmt = $db->query("SELECT * FROM some_table WHERE some_column = 'some_value'");
+        // ... остальной код ...
+    } catch (PDOException $e) {
+        error_log("Ошибка при выполнении запроса: " . $e->getMessage());
+        return false;
+    }
 
     if (!empty($adminID) && $successPath) {
         // Если токен валиден, редиректим на успешный путь

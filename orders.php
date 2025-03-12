@@ -11,7 +11,7 @@ if(isset($_GET['do']) && $_GET['do'] === 'logout'){
 }
 
 require_once 'api/auth/AuthCheck.php';
-
+require_once 'api/helpers/getUserType.php';
 AuthCheck('','login.php');
 
 ?>
@@ -35,12 +35,20 @@ AuthCheck('','login.php');
                     require_once 'api/clients/AdminName.php';
 
                     echo AdminName($_SESSION['token'],$db);
+                    require_once 'api/helpers/getUserType.php';
+                    $userType = getUserType($db);
+                    echo " <span style='color: #4CAF50; margin-left: 5px;'>(" . ucfirst($userType) . ")</span>";
                 ?>
             </p>
             <ul class="header_links"> 
                 <li><a href="clients.php">Клиенты</a></li>
                 <li><a href="products.php">Товары</a></li>
                 <li><a href="orders.php">Заказы</a></li>
+                <?php
+                if($userType == 'tech'){
+                  echo "<li><a href='tech.php'>Обращение пользователя</a></li>";
+                }
+                ?>
             </ul>
             <a href = '?do=logout' class="header_logout">Выйти</a>
         </div>
