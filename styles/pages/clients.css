@@ -415,3 +415,266 @@ tr:hover {
     flex-wrap: nowrap;
     overflow-x: auto; 
 }
+
+.ticket-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 20px;
+}
+
+.ticket-card {
+    background-color: #1f1f1f;
+    color: #e0e0e0;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin: 15px;
+    padding: 20px;
+    width: calc(33% - 40px);
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    border-left: 4px solid #218838; /* Green accent border */
+}
+
+.ticket-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.ticket-card h3 {
+    margin-top: 0;
+    font-size: 1.5em;
+    color: #ffffff;
+    border-bottom: 1px solid #333;
+    padding-bottom: 10px;
+}
+
+.ticket-card p {
+    margin: 10px 0;
+    line-height: 1.5;
+}
+
+.ticket-card .label {
+    font-weight: bold;
+    color: #aaaaaa;
+    margin-right: 5px;
+}
+
+.ticket-card .status {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.85em;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.ticket-card .status-waiting {
+    background-color: #f39c12;
+    color: #000;
+}
+
+.ticket-card .status-work {
+    background-color: #3498db;
+    color: #fff;
+}
+
+.ticket-card .status-complete {
+    background-color: #27ae60;
+    color: #fff;
+}
+
+.ticket-card .date {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 0.8em;
+    color: #aaaaaa;
+}
+
+/* Pagination Styles */
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin: 30px 0;
+    flex-wrap: wrap;
+}
+
+.pagination a, .pagination span {
+    display: inline-block;
+    padding: 8px 16px;
+    margin: 0 5px;
+    border-radius: 4px;
+    background-color: #1f1f1f;
+    color: #e0e0e0;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.pagination a:hover {
+    background-color: #333;
+}
+
+.pagination .active {
+    background-color: #218838;
+    color: white;
+}
+
+.pagination .disabled {
+    background-color: #1a1a1a;
+    color: #666;
+    cursor: not-allowed;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+    .ticket-card {
+        width: calc(50% - 40px);
+    }
+}
+
+@media (max-width: 768px) {
+    .ticket-card {
+        width: calc(100% - 40px);
+    }
+}
+
+/* Modal styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    background-color: #1f1f1f;
+    margin: 5% auto;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    width: 80%;
+    max-width: 800px;
+    position: relative;
+    animation: modalFadeIn 0.3s;
+}
+
+@keyframes modalFadeIn {
+    from {opacity: 0; transform: translateY(-20px);}
+    to {opacity: 1; transform: translateY(0);}
+}
+
+.close {
+    color: #aaa;
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.close:hover {
+    color: #fff;
+}
+
+.ticket-details {
+    margin-top: 20px;
+}
+
+.ticket-details p {
+    margin: 10px 0;
+    line-height: 1.6;
+}
+
+.message-box {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.message-content {
+    background-color: #2a2a2a;
+    padding: 15px;
+    border-radius: 6px;
+    margin-top: 8px;
+    white-space: pre-line;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.modal-form {
+    margin-top: 25px;
+    border-top: 1px solid #333;
+    padding-top: 20px;
+}
+
+.modal-form .form-group {
+    margin-bottom: 15px;
+}
+
+.modal-form label {
+    display: block;
+    margin-bottom: 8px;
+    color: #aaaaaa;
+}
+
+.modal-form select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 4px;
+    background-color: #2a2a2a;
+    color: #e0e0e0;
+    border: 1px solid #333;
+}
+
+.save-button {
+    background-color: #218838;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 100%;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.save-button:hover {
+    background-color: #1a6e2e;
+}
+
+/* Make ticket cards clickable */
+.ticket-card {
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.ticket-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.message-preview {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Responsive adjustments for modal */
+@media (max-width: 768px) {
+    .modal-content {
+        width: 95%;
+        margin: 10% auto;
+        padding: 15px;
+    }
+}
