@@ -12,6 +12,25 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
     if ($formData['client'] === 'new') {
         $fields[] = 'email';
     }
+    $promo = $_POST['promocode'];
+$promoInfo = []; 
+$todayDate = date('Y-m-d');
+
+$promoInfo = $db->query(
+    "SELECT * FROM promotions WHERE  code_promo = '$promo'"
+)->fetchAll();
+
+if(empty($promoInfo)){
+    $_SESSION['order_error'] = 'Промокод не существует';
+    header("Location: ../../orders.php");
+    exit;
+}
+if($promoInfo[0]['uses'] >= $promoInfo[0]['max_uses']){
+    $_SESSION['order_error'] = 'Акция закончена';
+    header("Location: ../../orders.php");
+    exit;
+}
+
 
     foreach ($fields as $field) {
         if (!isset($_POST[$field]) || empty($_POST[$field])) {
@@ -21,6 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
     // Start a transaction
     $db->beginTransaction();
+
 
     try {
         $clienID = $formData['client'] === 'new' ? time() : $formData['client'];

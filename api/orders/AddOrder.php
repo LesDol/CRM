@@ -9,6 +9,27 @@ function clearData($field) {
     return $cleaned;
 }
 
+$promo = $_POST['promocode'];
+$promoInfo = []; 
+$todayDate = date('Y-m-d');
+
+$promoInfo = $db->query(
+    "SELECT * FROM promotions WHERE  code_promo = '$promo'"
+)->fetchAll();
+
+if(empty($promoInfo)){
+    $_SESSION['order_errors'] = 'Промокод не существует';
+    header("Location: ../../order.php");
+    exit;
+}
+if($promoInfo[0]['uses'] >= $promoInfo[0]['max_uses']){
+    $_SESSION['order_errors'] = 'Акция закончена';
+    header("Location: ../../order.php");
+    exit;
+}
+
+
+
 if ($_SERVER['REQUEST_METHOD'] === "POST") {
     $formData = $_POST;
     $fields = ['name', 'desc', 'price', 'stock'];
@@ -44,6 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
         "SELECT id FROM products WHERE name = '$productName'"
     )->fetchAll();
 
+
     if (empty($existingProduct)) {
         $request = $db->prepare("
             INSERT INTO products (name, desc, price, stock) 
@@ -55,7 +77,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
             intval($formData['stock'])
         ]);
         
-        header("Location: ../../products.php");
+        header("Location: ../../order.php");
         exit;
         
     } else {
